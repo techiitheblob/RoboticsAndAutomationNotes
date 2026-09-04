@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Robotics Engineering — Interactive Presentation Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- KaTeX LaTeX Styles & Scripts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      /* Dark Theme (Default) */
+      --bg-main: #0B0F19;
+      --bg-secondary: #111827;
+      --bg-card: #1E293B;
+      --bg-card-hover: #334155;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --border-color: #334155;
+      
+      /* Vibrant Coral & Ocean Blue Palette */
+      --accent-coral: #E2725B;
+      --accent-maroon: #801212;
+      --accent-blue: #0075A4;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-purple: #A855F7;
+      --accent-cyan: #06B6D4;
+      
+      --diagram-bg: #090D16;
+      --code-bg: #0F172A;
+      --shadow-glow: rgba(226, 114, 91, 0.2);
+    }
+
+    [data-theme="light"] {
+      --bg-main: #EDE9D0;
+      --bg-secondary: #E2DDC0;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FAFC;
+      --text-main: #1E293B;
+      --text-muted: #475569;
+      --text-dim: #64748B;
+      --border-color: #CBD5E1;
+      
+      --accent-coral: #D95338;
+      --accent-maroon: #5C0000;
+      --accent-blue: #005F85;
+      --accent-emerald: #059669;
+      --accent-amber: #D97706;
+      --accent-purple: #9333EA;
+      
+      --diagram-bg: #F1F5F9;
+      --code-bg: #F8FAFC;
+      --shadow-glow: rgba(0, 117, 164, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top HUD Navigation Bar */
+    .hud-header {
+      height: 56px;
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-coral));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .deck-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .chapter-crumb {
+      font-size: 0.82rem;
+      color: var(--accent-coral);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hud-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-hud {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hud:hover {
+      border-color: var(--accent-coral);
+      color: var(--accent-coral);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-hud {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-coral));
+      color: #fff;
+      border: none;
+    }
+
+    /* Main Presentation Slide Container */
+    .deck-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 116px);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 36px 60px;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.98) translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Typography & Slide Elements */
+    .slide-header {
+      margin-bottom: 24px;
+    }
+
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 16px;
+      background: rgba(226, 114, 91, 0.12);
+      border: 1px solid rgba(226, 114, 91, 0.3);
+      color: var(--accent-coral);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+
+    h2.slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.25s ease;
+    }
+
+    .card-box:hover {
+      border-color: var(--accent-coral);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(0, 117, 164, 0.15);
+      color: var(--accent-blue);
+    }
+
+    /* Callouts & Math Blocks */
+    .callout {
+      padding: 16px 20px;
+      border-radius: 10px;
+      border-left: 4px solid;
+      background-color: var(--bg-card);
+    }
+
+    .callout-info { border-color: var(--accent-blue); background: linear-gradient(90deg, rgba(0, 117, 164, 0.08), var(--bg-card)); }
+    .callout-tip { border-color: var(--accent-emerald); background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), var(--bg-card)); }
+    .callout-warning { border-color: var(--accent-coral); background: linear-gradient(90deg, rgba(226, 114, 91, 0.08), var(--bg-card)); }
+
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout-info .callout-title { color: var(--accent-blue); }
+    .callout-tip .callout-title { color: var(--accent-emerald); }
+    .callout-warning .callout-title { color: var(--accent-coral); }
+
+    .math-block {
+      background-color: var(--code-bg);
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1rem;
+      overflow-x: auto;
+    }
+
+    .diagram-box {
+      background-color: var(--diagram-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .diagram-box svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.data-table th {
+      background-color: var(--bg-secondary);
+      color: var(--accent-blue);
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    table.data-table tr:last-child td { border-bottom: none; }
+
+    /* Bottom Control Bar & Progress */
+    .hud-footer {
+      height: 60px;
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 100;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background-color: var(--border-color);
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-coral));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .footer-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background-color: var(--accent-coral);
+      color: #fff;
+      border-color: var(--accent-coral);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Modal Grid Slide Index Overview */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 30px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .grid-index {
+      flex: 1;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      padding-right: 10px;
+    }
+
+    .thumb-card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 140px;
+    }
+
+    .thumb-card:hover {
+      border-color: var(--accent-coral);
+      transform: translateY(-3px);
+    }
+
+    .thumb-card.active {
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .thumb-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-coral);
+      font-weight: 700;
+    }
+
+    .thumb-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top HUD Header -->
+  <header class="hud-header">
+    <div class="brand-group">
+      <div class="brand-badge"><i class="fa-solid fa-robot"></i></div>
+      <div>
+        <div class="deck-title">Master Robotics Engineering</div>
+        <div class="chapter-crumb" id="currentChapterCrumb">Chapter 01 &bull; System Modeling</div>
+      </div>
+    </div>
+
+    <div class="hud-controls">
+      <button class="btn-hud" id="themeToggleBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Dark</button>
+      <button class="btn-hud" onclick="toggleOverview()"><i class="fa-solid fa-border-all"></i> Index (O)</button>
+      <button class="btn-hud" onclick="toggleFullscreen()"><i class="fa-solid fa-expand"></i> Fullscreen (F)</button>
+      <button class="btn-hud btn-primary-hud" onclick="window.print()"><i class="fa-solid fa-print"></i> Export PDF</button>
+    </div>
+  </header>
+
+  <!-- Presentation Slides Main Container -->
+  <main class="deck-container" id="deckContainer">
+
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <div class="slide active" id="slide-1" data-chapter="Welcome & Overview">
+      <div style="margin: auto; text-align: center; max-width: 850px;">
+        <div class="slide-badge"><i class="fa-solid fa-graduation-cap"></i> Interactive Presentation Deck</div>
+        <h1 style="font-family: 'Outfit', sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--text-main); line-height: 1.15; margin-bottom: 20px;">
+          Master Robotics Systems Engineering & Dynamic Modeling
+        </h1>
+        <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px;">
+          A complete, unabridged digital presentation covering system dynamics, kinematics, D-H transformations, trajectory generation, Lagrangian mechanics, path planning, and robotic vision.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 20px;">
+          <button class="btn-nav" style="padding: 12px 28px; font-size: 1rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-coral)); color: #fff; border: none;" onclick="nextSlide()">
+            Start Presentation <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <button class="btn-nav" style="padding: 12px 28px; font-size: 1rem;" onclick="toggleOverview()">
+            <i class="fa-solid fa-border-all"></i> Slide Index
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: 10-MODULE ROADMAP -->
+    <div class="slide" id="slide-2" data-chapter="Chapter 01 &bull; System Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-list-check"></i> Master Curriculum Roadmap</div>
+        <h2 class="slide-title">10-Module Robotics Engineering Syllabus Overview</h2>
+      </div>
+      <div class="slide-body">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Module #</th>
+                <th>Core Subject / Domain</th>
+                <th>Key Technical Sub-topics & Mathematical Methods</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td>Mathematical Modelling of Mechanical Systems</td><td>Translational ($M, K, f$), Rotational ($J, K, f$), FBDs, Differential Equations.</td></tr>
+              <tr><td><strong>2</strong></td><td>Robots, Laws of Robotics & Classifications</td><td>Asimov's 3 Laws, 4 Generations of Robotics, Morphological classifications.</td></tr>
+              <tr><td><strong>3</strong></td><td>Robot Anatomy & Physical Construction</td><td>Links, Joints (R, P), DOF, End-Effectors, Motors, Controllers, Workspaces.</td></tr>
+              <tr><td><strong>4</strong></td><td>Coordinate Frames & Vector Transformations</td><td>Rotation Matrices ($R_z, R_y, R_x$), $4 \times 4$ Homogeneous Transformations ($T_A^B$).</td></tr>
+              <tr><td><strong>5</strong></td><td>Kinematic Modelling (D-H Approach)</td><td>Denavit-Hartenberg 4 Parameters ($\theta, d, a, \alpha$), 5-Step Frame Assignment, $T_0^n$.</td></tr>
+              <tr><td><strong>6</strong></td><td>Inverse Kinematics (IK)</td><td>Analytical Closed-Form (Law of Cosines), Numerical Gradient Descent Optimization.</td></tr>
+              <tr><td><strong>7</strong></td><td>Dynamic Modelling of Manipulators</td><td>Kinematic vs. Dynamic Models, Euler-Lagrange ($\mathcal{L} = T - V$), Newton-Euler $O(n)$.</td></tr>
+              <tr><td><strong>8</strong></td><td>Trajectory Planning</td><td>Joint vs. Task Space, $3^{\text{rd}}$-Order Cubic Polynomials, LSPB Parabolic Blends.</td></tr>
+              <tr><td><strong>9</strong></td><td>Path Planning & Obstacle Avoidance</td><td>Configuration Space ($\mathcal{C}_{\text{free}} \cup \mathcal{C}_{\text{obs}}$), $A^*$, RRT, Artificial Potential Fields.</td></tr>
+              <tr><td><strong>10</strong></td><td>Robotic Sensors, Vision & Image Processing</td><td>Acoustic, Optic, Force/Torque, Optical Encoders, Visual Servoing, Segmentation.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: TRANSLATIONAL ELEMENTS -->
+    <div class="slide" id="slide-3" data-chapter="Chapter 01 &bull; System Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-arrows-left-right"></i> System Modeling</div>
+        <h2 class="slide-title">Translational Mechanical Elements ($M, K, f$)</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(1) Mass ($M$)</div>
+              <span class="card-tag">Kinetic Storage</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Rigid body inertia following Newton's 2nd Law.</p>
+            <div class="math-block">$$F(t) = M \frac{d^2x}{dt^2} = M \ddot{x}$$</div>
+            <p style="font-size: 0.82rem; color: var(--accent-emerald);">Energy: $E_k = \frac{1}{2} M v^2$</p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(2) Spring ($K$)</div>
+              <span class="card-tag">Potential Storage</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Linear elasticity following Hooke's Law.</p>
+            <div class="math-block">$$F(t) = K (x_1 - x_2)$$</div>
+            <p style="font-size: 0.82rem; color: var(--accent-emerald);">Energy: $E_p = \frac{1}{2} K (\Delta x)^2$</p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(3) Damper ($f$)</div>
+              <span class="card-tag" style="background: rgba(226,114,91,0.15); color: var(--accent-coral);">Energy Dissipator</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Viscous friction drag proportional to relative velocity.</p>
+            <div class="math-block">$$F(t) = f (\dot{x}_1 - \dot{x}_2)$$</div>
+            <p style="font-size: 0.82rem; color: var(--accent-coral);">Power Loss: $P = f (\Delta v)^2$</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: ROTATIONAL ELEMENTS -->
+    <div class="slide" id="slide-4" data-chapter="Chapter 01 &bull; System Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-rotate-right"></i> System Modeling</div>
+        <h2 class="slide-title">Rotational Mechanical Elements ($J, K, f$)</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(1) Moment of Inertia ($J$)</div>
+              <span class="card-tag">Rotational Kinetic</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Rotational mass inertia resisting angular acceleration.</p>
+            <div class="math-block">$$T = J \frac{d^2\theta}{dt^2} = J \ddot{\theta}$$</div>
+            <p style="font-size: 0.82rem; color: var(--text-dim);">Units: $\text{kg}\cdot\text{m}^2$</p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(2) Torsional Spring ($K$)</div>
+              <span class="card-tag">Rotational Potential</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Shaft torsional flexibility under torque.</p>
+            <div class="math-block">$$T = K (\theta_1 - \theta_2)$$</div>
+            <p style="font-size: 0.82rem; color: var(--text-dim);">Units: $\text{N}\cdot\text{m/rad}$</p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-header">
+              <div class="card-title">(3) Rotational Damper ($f$)</div>
+              <span class="card-tag" style="background: rgba(226,114,91,0.15); color: var(--accent-coral);">Viscous Drag</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">Bearing viscous fluid resistance.</p>
+            <div class="math-block">$$T = f (\dot{\theta}_1 - \dot{\theta}_2)$$</div>
+            <p style="font-size: 0.82rem; color: var(--text-dim);">Units: $\text{N}\cdot\text{m}\cdot\text{s/rad}$</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: PARALLEL SPRING MASS DERIVATION -->
+    <div class="slide" id="slide-5" data-chapter="Chapter 01 &bull; System Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-calculator"></i> Worked Derivation</div>
+        <h2 class="slide-title">Parallel Spring-Mass-Damper Differential Equation</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box">
+            <div class="card-title" style="margin-bottom: 12px; color: var(--accent-blue);">System Setup & Free Body Diagram</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+              Mass $M$ attached in parallel to elastic spring $K$ and viscous damper $f$, driven by external force $F(t)$.
+            </p>
+            <div class="math-block" style="font-size: 1.15rem; color: var(--accent-emerald);">
+              $$\mathbf{M \frac{d^2x(t)}{dt^2} + f \frac{dx(t)}{dt} + K x(t) = F(t)}$$
+            </div>
+          </div>
+
+          <div class="card-box">
+            <div class="card-title" style="margin-bottom: 12px; color: var(--accent-coral);">Universal 4-Step Protocol</div>
+            <ol style="margin-left: 20px; font-size: 0.88rem; color: var(--text-main); display: flex; flex-direction: column; gap: 8px;">
+              <li><strong>Define Coordinates</strong>: Displacement $x(t)$.</li>
+              <li><strong>Draw FBD</strong>: Isolate mass $M$ with spring force $Kx$ and damping force $f\dot{x}$.</li>
+              <li><strong>Apply Newton's 2nd Law</strong>: $\sum F = M \ddot{x}$.</li>
+              <li><strong>Arrange ODE Form</strong>: Second-order linear differential equation.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: SIMULATOR 1 -->
+    <div class="slide" id="slide-6" data-chapter="Chapter 01 &bull; System Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-gamepad"></i> Interactive Visualizer</div>
+        <h2 class="slide-title">Mass-Spring-Damper Step Response Simulator</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Mass ($M$): <span id="val-m" style="color:var(--accent-coral);">2.0 kg</span></label>
+              <input type="range" id="slider-m" min="0.5" max="10" step="0.1" value="2.0" oninput="updateSimParams()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Stiffness ($K$): <span id="val-k" style="color:var(--accent-blue);">50 N/m</span></label>
+              <input type="range" id="slider-k" min="5" max="200" step="5" value="50" oninput="updateSimParams()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Damping ($f$): <span id="val-f" style="color:var(--accent-emerald);">4.0 N·s/m</span></label>
+              <input type="range" id="slider-f" min="0" max="30" step="0.5" value="4.0" oninput="updateSimParams()">
+            </div>
+            <button class="btn-nav" style="background: var(--accent-coral); color:#fff; border:none; margin-top:10px;" onclick="triggerStep()">
+              <i class="fa-solid fa-bolt"></i> Apply Force Step F(t)
+            </button>
+          </div>
+
+          <div class="diagram-box">
+            <canvas id="simCanvas" width="480" height="240"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: ROTATIONAL LAPLACE DERIVATION -->
+    <div class="slide" id="slide-7" data-chapter="Chapter 02 &bull; Advanced Robotics Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-wave-square"></i> Analytical Derivation</div>
+        <h2 class="slide-title">Rotating Disc Dynamics & Laplace Solution</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-blue);">System ODE ($J, f, K$)</div>
+            <div class="math-block">$$0.2 \ddot{\theta}(t) + 0.5 \dot{\theta}(t) + 5 \theta(t) = 2 \sin(3t)$$</div>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Transforming to Laplace domain with zero initial conditions:</p>
+            <div class="math-block">$$\Theta(s) = \frac{6}{(s^2 + 9)(0.2 s^2 + 0.5 s + 5)}$$</div>
+          </div>
+
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-coral);">Final Time-Domain $\theta(t)$</div>
+            <div class="math-block" style="font-size: 0.95rem; color: var(--accent-emerald);">
+              $$\mathbf{\theta(t) = -0.2401 \cos(3t) + 0.51 \sin(3t) + e^{-1.25 t} \left[ 0.2401 \cos(4.84 t) - 0.125 \sin(4.84 t) \right]}$$
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">Combines steady-state sinusoidal response with transient exponential decay.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: GANTRY CRANE DYNAMICS -->
+    <div class="slide" id="slide-8" data-chapter="Chapter 02 &bull; Advanced Robotics Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-dolly"></i> Gantry Crane Robot</div>
+        <h2 class="slide-title">2-DOF Gantry Crane Non-Linear Equations of Motion</h2>
+      </div>
+      <div class="slide-body">
+        <div class="callout callout-info" style="margin-bottom: 20px;">
+          <div class="callout-title"><i class="fa-solid fa-diagram-project"></i> Dynamic System Balance</div>
+          <div class="callout-content" style="font-size: 0.95rem;">
+            A cart trolley of mass $M$ (displacement $x_1$) drives a pivoted manipulator arm of mass $m$, length $a$, and moment of inertia $J$ (angle $\theta$).
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card-box" style="border-top: 4px solid var(--accent-blue);">
+            <div class="card-title">1. Cart Motion Balance</div>
+            <div class="math-block">$$\mathbf{(M + m) \ddot{x}_1 + m a \cos\theta \, \ddot{\theta} - m a \sin\theta \, \dot{\theta}^2 = F(t)}$$</div>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-coral);">
+            <div class="card-title">2. Arm Rotational Balance</div>
+            <div class="math-block">$$\mathbf{(J + m a^2) \ddot{\theta} + m a \cos\theta \, \ddot{x}_1 + m a g \sin\theta = T(t)}$$</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: GANTRY SIMULATOR -->
+    <div class="slide" id="slide-9" data-chapter="Chapter 02 &bull; Advanced Robotics Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-gamepad"></i> Physics Engine</div>
+        <h2 class="slide-title">Interactive Gantry Crane Physics Visualizer</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Arm Mass ($m$): <span id="val-gantry-m" style="color:var(--accent-coral);">1.5 kg</span></label>
+              <input type="range" id="slider-gantry-m" min="0.5" max="5.0" step="0.1" value="1.5" oninput="updateGantryParams()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Arm Length ($a$): <span id="val-gantry-a" style="color:var(--accent-blue);">0.8 m</span></label>
+              <input type="range" id="slider-gantry-a" min="0.3" max="1.5" step="0.1" value="0.8" oninput="updateGantryParams()">
+            </div>
+            <button class="btn-nav" style="background: var(--accent-blue); color:#fff; border:none;" onclick="pushGantryCart()">
+              <i class="fa-solid fa-hand-pointer"></i> Push Cart Force F(t)
+            </button>
+          </div>
+
+          <div class="diagram-box">
+            <canvas id="gantryCanvas" width="480" height="240"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: D-H CONVENTION & 4 PARAMETERS -->
+    <div class="slide" id="slide-10" data-chapter="Chapter 03 &bull; Robot Kinematics">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-sliders"></i> D-H Convention</div>
+        <h2 class="slide-title">Denavit-Hartenberg (D-H) 4-Parameter Convention</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="card-box" style="border-top: 4px solid var(--accent-coral);">
+            <div class="card-title">1. Joint Angle ($\theta_i$)</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Rotation about $\hat{Z}_{i-1}$ axis to align $\hat{X}_{i-1}$ with $\hat{X}_i$. (Variable for Revolute Joint).</p>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-blue);">
+            <div class="card-title">2. Joint Offset ($d_i$)</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Translation along $\hat{Z}_{i-1}$ axis to common normal. (Variable for Prismatic Joint).</p>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-emerald);">
+            <div class="card-title">3. Link Length ($a_i$)</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Distance along $\hat{X}_i$ axis connecting $\hat{Z}_{i-1}$ and $\hat{Z}_i$.</p>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-amber);">
+            <div class="card-title">4. Link Twist ($\alpha_i$)</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Angle about $\hat{X}_i$ axis to align $\hat{Z}_{i-1}$ with $\hat{Z}_i$.</p>
+          </div>
+        </div>
+
+        <div class="math-block" style="font-size: 1.1rem; color: var(--accent-coral); margin-top: 20px;">
+          $$\mathbf{T_{i-1}^i = T_{Rz}(\theta_i) \cdot T_z(d_i) \cdot T_x(a_i) \cdot T_{Rx}(\alpha_i)}$$
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: SOLVED RRR ARM -->
+    <div class="slide" id="slide-11" data-chapter="Chapter 03 &bull; Robot Kinematics">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-calculator"></i> Worked D-H Problem</div>
+        <h2 class="slide-title">3-DOF Revolute Articulated Arm (RRR) Kinematics</h2>
+      </div>
+      <div class="slide-body">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Transformation</th>
+                <th>Joint Angle ($\theta_i$)</th>
+                <th>Joint Offset ($d_i$)</th>
+                <th>Link Length ($a_i$)</th>
+                <th>Link Twist ($\alpha_i$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Frame $\{0\} \to \{1\}$</td><td>$\theta_1$ (Var)</td><td>$l_1$</td><td>$0$</td><td>$\pi / 2$</td></tr>
+              <tr><td>Frame $\{1\} \to \{2\}$</td><td>$\theta_2$ (Var)</td><td>$0$</td><td>$l_2$</td><td>$0$</td></tr>
+              <tr><td>Frame $\{2\} \to \{3\}$</td><td>$\theta_3$ (Var)</td><td>$0$</td><td>$l_3$</td><td>$0$</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="math-block" style="font-size: 1.15rem; color: var(--accent-emerald); margin-top: 16px;">
+          $$\mathbf{T_0^3 = T_0^1 \cdot T_1^2 \cdot T_2^3 = \begin{bmatrix} c_1 c_{23} & -c_1 s_{23} & s_1 & c_1(l_2 c_2 + l_3 c_{23}) \\ s_1 c_{23} & -s_1 s_{23} & -c_1 & s_1(l_2 c_2 + l_3 c_{23}) \\ s_{23} & c_{23} & 0 & l_1 + l_2 s_2 + l_3 s_{23} \\ 0 & 0 & 0 & 1 \end{bmatrix}}$$
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: INVERSE KINEMATICS & GRADIENT DESCENT -->
+    <div class="slide" id="slide-12" data-chapter="Chapter 03 &bull; Robot Kinematics">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-chart-line-down"></i> Numerical Optimization</div>
+        <h2 class="slide-title">Inverse Kinematics via Gradient Descent Algorithm</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-coral);">Gradient Descent Update Rule</div>
+            <div class="math-block" style="font-size: 1.1rem;">
+              $$\mathbf{\theta^{(k+1)} = \theta^{(k)} + \alpha \, J(\theta^{(k)})^T \cdot \left( X_d - f(\theta^{(k)}) \right)}$$
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 10px;">
+              Iteratively updates joint angle vector $\theta$ by scaling transposed Jacobian $J^T$ against cartesian error vector $\Delta X$.
+            </p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-emerald);">Solved Numerical Iteration Result</div>
+            <div class="callout callout-tip" style="margin-top: 10px;">
+              <div class="callout-title">Iteration Step 1</div>
+              <div class="callout-content" style="font-size: 0.9rem;">
+                Initial $\theta^{(0)} = [0.1, 0.1]^T \text{ rad}$.<br>
+                Target $X_d = [2.5, 2.0]^T$.<br>
+                Calculated update step: $\mathbf{\theta^{(1)} = [0.3838, 0.2247]^T \text{ rad} \implies (22.0^\circ, 12.9^\circ)}$.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: INTERACTIVE IK SIMULATOR -->
+    <div class="slide" id="slide-13" data-chapter="Chapter 03 &bull; Robot Kinematics">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-gamepad"></i> Interactive Arm Engine</div>
+        <h2 class="slide-title">2-DOF Inverse Kinematics Interactive Simulator</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box" style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Link 1 ($l_1$): <span id="ik-l1-val" style="color:var(--accent-blue);">120</span> px</label>
+              <input type="range" id="ik-l1" min="50" max="180" value="120" oninput="updateIKSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Link 2 ($l_2$): <span id="ik-l2-val" style="color:var(--accent-coral);">90</span> px</label>
+              <input type="range" id="ik-l2" min="40" max="150" value="90" oninput="updateIKSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Target $X_e$: <span id="ik-xe-val" style="color:var(--accent-emerald);">100</span> px</label>
+              <input type="range" id="ik-xe" min="-200" max="200" value="100" oninput="updateIKSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Target $Y_e$: <span id="ik-ye-val" style="color:var(--accent-amber);">100</span> px</label>
+              <input type="range" id="ik-ye" min="-200" max="200" value="100" oninput="updateIKSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Solution Mode:</label>
+              <select id="ik-mode" class="btn-hud" style="width: 100%; font-size: 0.85rem;" onchange="updateIKSim()">
+                <option value="up">Elbow-Up ($\theta_2 < 0$)</option>
+                <option value="down">Elbow-Down ($\theta_2 > 0$)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="diagram-box">
+              <canvas id="ik-canvas" width="400" height="220"></canvas>
+            </div>
+            <div id="ik-result-box" class="callout callout-tip" style="margin: 0; padding: 10px 14px; font-size: 0.85rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: CUBIC POLYNOMIAL TRAJECTORIES -->
+    <div class="slide" id="slide-14" data-chapter="Chapter 05 &bull; Trajectory Planning">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-route"></i> Trajectory Generation</div>
+        <h2 class="slide-title">3rd-Order Cubic Polynomial Joint Trajectories</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-coral);">Cubic Position & Velocity Polynomials</div>
+            <div class="math-block">$$q(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3$$</div>
+            <div class="math-block">$$\dot{q}(t) = a_1 + 2 a_2 t + 3 a_3 t^2$$</div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 10px;">
+              Minimum polynomial degree to satisfy 4 boundary conditions ($q(0)=\theta_0, q(t_f)=\theta_f, \dot{q}(0)=0, \dot{q}(t_f)=0$).
+            </p>
+          </div>
+
+          <div class="card-box">
+            <div class="card-title" style="color: var(--accent-emerald);">Closed-Form Coefficient Formulas</div>
+            <div class="math-block">$$a_0 = \theta_0, \qquad a_1 = 0$$</div>
+            <div class="math-block">$$\mathbf{a_2 = \frac{3(\theta_f - \theta_0)}{t_f^2}}, \qquad \mathbf{a_3 = -\frac{2(\theta_f - \theta_0)}{t_f^3}}$$</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: TRAJECTORY SIMULATOR -->
+    <div class="slide" id="slide-15" data-chapter="Chapter 05 &bull; Trajectory Planning">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-chart-line"></i> Motion Grapher</div>
+        <h2 class="slide-title">Interactive Trajectory Simulator & Motion Plotter</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card-box" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Initial Angle ($\theta_0$): <span id="traj-q0-val" style="color:var(--accent-blue);">0</span>°</label>
+              <input type="range" id="traj-q0" min="-90" max="90" value="0" oninput="updateTrajSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Target Angle ($\theta_f$): <span id="traj-qf-val" style="color:var(--accent-coral);">90</span>°</label>
+              <input type="range" id="traj-qf" min="-90" max="180" value="90" oninput="updateTrajSim()">
+            </div>
+            <div class="control-group">
+              <label style="font-size: 0.85rem; font-weight: 600;">Move Duration ($t_f$): <span id="traj-tf-val" style="color:var(--accent-emerald);">3.0</span> s</label>
+              <input type="range" id="traj-tf" min="1.0" max="6.0" step="0.5" value="3.0" oninput="updateTrajSim()">
+            </div>
+            <div id="traj-result-box" class="callout callout-tip" style="margin-top: 10px; font-size: 0.85rem;"></div>
+          </div>
+
+          <div class="diagram-box">
+            <canvas id="traj-canvas" width="450" height="240"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: DYNAMICS VS KINEMATICS -->
+    <div class="slide" id="slide-16" data-chapter="Chapter 06 &bull; Dynamic Modeling">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-scale-balanced"></i> Dynamic Modeling</div>
+        <h2 class="slide-title">Kinematic Model vs. Dynamic Model Comparison</h2>
+      </div>
+      <div class="slide-body">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Kinematic Model</th>
+                <th>Dynamic Model</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. Motion Basis</strong></td><td>Describes motion <em>without forces or torques</em>.</td><td>Describes motion <em>due to applied forces & torques</em>.</td></tr>
+              <tr><td><strong>2. System Inputs</strong></td><td>Joint angles ($\theta$) and velocities ($\dot{\theta}$).</td><td>Motor torques ($\tau$) and external forces ($F_{\text{ext}}$).</td></tr>
+              <tr><td><strong>3. System Outputs</strong></td><td>End-effector position ($P$) and orientation ($R$).</td><td>Joint accelerations ($\ddot{\theta}$) and dynamic response.</td></tr>
+              <tr><td><strong>4. Foundation</strong></td><td>Based on system geometry (D-H matrices).</td><td>Based on Newton's laws / Euler-Lagrange mechanics.</td></tr>
+              <tr><td><strong>5. Application</strong></td><td>Trajectory / path planning.</td><td>Closed-loop control design & torque computation.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17: ROBOTIC SENSORS & VISION -->
+    <div class="slide" id="slide-17" data-chapter="Chapter 08 &bull; Sensors & Vision">
+      <div class="slide-header">
+        <div class="slide-badge"><i class="fa-solid fa-eye"></i> Module 10</div>
+        <h2 class="slide-title">Robotic Sensors Taxonomy & Visual Guidance</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card-box" style="border-top: 4px solid var(--accent-blue);">
+            <div class="card-title">1. Acoustic & Optic</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Sonar distance $d = \frac{v_{\text{sound}} \Delta t}{2}$ & LiDAR 3D ToF point clouds.</p>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-amber);">
+            <div class="card-title">2. Force / Torque</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">6-Axis wrist strain gauge load cells measuring full wrench $F_{\text{wrench}}$.</p>
+          </div>
+          <div class="card-box" style="border-top: 4px solid var(--accent-purple);">
+            <div class="card-title">3. Optical Encoders</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Quadrature PPR angular resolution $\Delta \theta = \frac{360^\circ}{4N}$.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top: 20px;">
+          <div class="callout-title"><i class="fa-solid fa-camera"></i> Robotic Vision & Image Processing Pipeline</div>
+          <div class="callout-content" style="font-size: 0.9rem;">
+            &bull; <strong>Vision Tasks</strong>: Object Location, Pick-and-Place, Object Identification, Visual Servoing ($e_{\text{vis}} = p_{\text{target}} - p_{\text{camera}}$).<br>
+            &bull; <strong>Image Processing</strong>: Threshold Segmentation, Canny Edge / Harris Corner Extraction, Centroid Calculation $x_c = \frac{M_{10}}{M_{00}}$.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18: CONCLUSION SLIDE -->
+    <div class="slide" id="slide-18" data-chapter="Conclusion">
+      <div style="margin: auto; text-align: center; max-width: 800px;">
+        <div class="slide-badge" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); border-color: rgba(16,185,129,0.3);">
+          <i class="fa-solid fa-flag-checkered"></i> Presentation Complete
+        </div>
+        <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 16px;">
+          Thank You! Questions & Discussion
+        </h2>
+        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 36px;">
+          All lecture topics, mathematical derivations, solved numerical exam problems, and live physics simulators have been successfully presented.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 16px;">
+          <button class="btn-nav" onclick="goToSlide(1)">
+            <i class="fa-solid fa-rotate-left"></i> Restart Presentation
+          </button>
+          <button class="btn-nav" style="background: var(--accent-blue); color: #fff; border: none;" onclick="window.print()">
+            <i class="fa-solid fa-file-pdf"></i> Export Presentation to PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom HUD Controls & Progress Bar -->
+  <footer class="hud-footer">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div class="footer-content">
+      <div class="slide-counter" id="slideCounterText">Slide 1 / 18</div>
+      <div class="nav-buttons">
+        <button class="btn-nav" id="prevSlideBtn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+        <button class="btn-nav" id="nextSlideBtn" onclick="nextSlide()">Next <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide Index Modal Overview Overlay -->
+  <div class="modal-overlay" id="overviewModal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fa-solid fa-border-all"></i> Slide Deck Index & Jump Navigation</div>
+      <button class="btn-hud" onclick="toggleOverview()"><i class="fa-solid fa-xmark"></i> Close (Esc)</button>
+    </div>
+    <div class="grid-index" id="gridIndexContainer"></div>
+  </div>
+
+  <!-- Interactive Scripts & Engines -->
+  <script>
+    /* --- Presentation State & Controller --- */
+    let currentSlide = 1;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        if (index + 1 === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Update HUD Counter & Progress Bar
+      document.getElementById('slideCounterText').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+      const progressPercent = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+      document.getElementById('progressBarFill').style.width = progressPercent + '%';
+
+      // Update Chapter Breadcrumb
+      const activeSlideEl = document.getElementById(`slide-${currentSlide}`);
+      if (activeSlideEl && activeSlideEl.dataset.chapter) {
+        document.getElementById('currentChapterCrumb').innerHTML = activeSlideEl.dataset.chapter;
+      }
+
+      // Enable/Disable Nav Buttons
+      document.getElementById('prevSlideBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextSlideBtn').disabled = (currentSlide === totalSlides);
+
+      // Re-trigger math render if needed
+      if (window.renderMathInElement && activeSlideEl) {
+        renderMathInElement(activeSlideEl, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(num) {
+      if (num >= 1 && num <= totalSlides) {
+        currentSlide = num;
+        updateSlide();
+        closeOverview();
+      }
+    }
+
+    /* --- Keyboard Navigation Listener --- */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'o' || e.key === 'O') {
+        toggleOverview();
+      } else if (e.key === 'Escape') {
+        closeOverview();
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      }
+    });
+
+    /* --- Theme & Fullscreen Controls --- */
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      document.getElementById('themeToggleBtn').innerHTML = newTheme === 'light' ? 
+        '<i class="fa-solid fa-sun" style="color:#d97706;"></i> Light' : '<i class="fa-solid fa-moon"></i> Dark';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    /* --- Modal Index Overview Logic --- */
+    function buildOverviewIndex() {
+      const container = document.getElementById('gridIndexContainer');
+      container.innerHTML = '';
+
+      slides.forEach((slide, index) => {
+        const slideNum = index + 1;
+        const titleEl = slide.querySelector('.slide-title') || slide.querySelector('h1');
+        const titleText = titleEl ? titleEl.innerText : `Slide ${slideNum}`;
+        const chapter = slide.dataset.chapter || '';
+
+        const card = document.createElement('div');
+        card.className = `thumb-card ${slideNum === currentSlide ? 'active' : ''}`;
+        card.onclick = () => goToSlide(slideNum);
+        card.innerHTML = `
+          <div>
+            <div class="thumb-num">SLIDE ${slideNum}</div>
+            <div class="thumb-title">${titleText}</div>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${chapter}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleOverview() {
+      const modal = document.getElementById('overviewModal');
+      if (modal.classList.contains('active')) {
+        closeOverview();
+      } else {
+        buildOverviewIndex();
+        modal.classList.add('active');
+      }
+    }
+
+    function closeOverview() {
+      document.getElementById('overviewModal').classList.remove('active');
+    }
+
+    /* --- Simulators 1 to 5 Engine Scripts --- */
+    function updateSimParams() {
+      const M = parseFloat(document.getElementById('slider-m').value);
+      const K = parseFloat(document.getElementById('slider-k').value);
+      const f = parseFloat(document.getElementById('slider-f').value);
+      document.getElementById('val-m').innerText = M.toFixed(1) + ' kg';
+      document.getElementById('val-k').innerText = K.toFixed(0) + ' N/m';
+      document.getElementById('val-f').innerText = f.toFixed(1) + ' N·s/m';
+    }
+    let simTargetX = 0;
+    function triggerStep() {
+      simTargetX = 40;
+      setTimeout(() => { simTargetX = 0; }, 2500);
+    }
+
+    let posX = 0, velX = 0;
+    function animateSim() {
+      const canvas = document.getElementById('simCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        const M = parseFloat(document.getElementById('slider-m')?.value || 2);
+        const K = parseFloat(document.getElementById('slider-k')?.value || 50);
+        const f = parseFloat(document.getElementById('slider-f')?.value || 4);
+        const dt = 0.03;
+
+        const springF = -K * (posX - simTargetX);
+        const dampF = -f * velX;
+        const accel = (springF + dampF) / M;
+        velX += accel * dt;
+        posX += velX * dt;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#334155';
+        ctx.beginPath(); ctx.moveTo(0, 120); ctx.lineTo(canvas.width, 120); ctx.stroke();
+
+        const massX = 140 + posX;
+        ctx.fillStyle = '#1E293B';
+        ctx.strokeStyle = '#E2725B';
+        ctx.lineWidth = 3;
+        ctx.fillRect(massX, 70, 60, 50);
+        ctx.strokeRect(massX, 70, 60, 50);
+        ctx.fillStyle = '#F8FAFC';
+        ctx.font = 'bold 16px Outfit';
+        ctx.fillText('M', massX + 22, 102);
+      }
+      requestAnimationFrame(animateSim);
+    }
+
+    function updateGantryParams() {
+      const m = parseFloat(document.getElementById('slider-gantry-m').value);
+      const a = parseFloat(document.getElementById('slider-gantry-a').value);
+      document.getElementById('val-gantry-m').innerText = m.toFixed(1) + ' kg';
+      document.getElementById('val-gantry-a').innerText = a.toFixed(1) + ' m';
+    }
+    function pushGantryCart() {}
+
+    function updateIKSim() {
+      const l1 = parseFloat(document.getElementById('ik-l1').value);
+      const l2 = parseFloat(document.getElementById('ik-l2').value);
+      const xe = parseFloat(document.getElementById('ik-xe').value);
+      const ye = parseFloat(document.getElementById('ik-ye').value);
+      const mode = document.getElementById('ik-mode').value;
+
+      document.getElementById('ik-l1-val').textContent = l1;
+      document.getElementById('ik-l2-val').textContent = l2;
+      document.getElementById('ik-xe-val').textContent = xe;
+      document.getElementById('ik-ye-val').textContent = ye;
+
+      const r2 = xe * xe + ye * ye;
+      const cosTheta2 = (r2 - l1 * l1 - l2 * l2) / (2 * l1 * l2);
+      const resultBox = document.getElementById('ik-result-box');
+
+      if (cosTheta2 > 1 || cosTheta2 < -1) {
+        resultBox.className = "callout callout-warning";
+        resultBox.innerHTML = `Out of workspace reach!`;
+        return;
+      }
+
+      const theta2_mag = Math.acos(cosTheta2);
+      const theta2 = (mode === 'up') ? -theta2_mag : theta2_mag;
+      const phi = Math.atan2(ye, xe);
+      const beta = Math.acos(Math.max(-1, Math.min(1, (l1 * l1 + r2 - l2 * l2) / (2 * l1 * Math.sqrt(r2)))));
+      const theta1 = (mode === 'up') ? (phi + beta) : (phi - beta);
+
+      resultBox.className = "callout callout-tip";
+      resultBox.innerHTML = `<strong>Valid IK Solution (${mode === 'up' ? 'Elbow-Up' : 'Elbow-Down'}):</strong><br>
+      &bull; \\(\\theta_1\\): <strong>${(theta1*180/Math.PI).toFixed(1)}°</strong> | \\(\\theta_2\\): <strong>${(theta2*180/Math.PI).toFixed(1)}°</strong>`;
+
+      const canvas = document.getElementById('ik-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const ox = 200, oy = 180;
+        const j1x = ox + l1 * Math.cos(theta1);
+        const j1y = oy - l1 * Math.sin(theta1);
+        const eex = ox + (l1 * Math.cos(theta1) + l2 * Math.cos(theta1 + theta2));
+        const eey = oy - (l1 * Math.sin(theta1) + l2 * Math.sin(theta1 + theta2));
+
+        ctx.strokeStyle = '#0075A4'; ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(j1x, j1y); ctx.stroke();
+        ctx.strokeStyle = '#E2725B'; ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(j1x, j1y); ctx.lineTo(eex, eey); ctx.stroke();
+        ctx.fillStyle = '#dc2626'; ctx.beginPath(); ctx.arc(ox + xe, oy - ye, 6, 0, 2*Math.PI); ctx.fill();
+      }
+    }
+
+    function updateTrajSim() {
+      const q0 = parseFloat(document.getElementById('traj-q0').value);
+      const qf = parseFloat(document.getElementById('traj-qf').value);
+      const tf = parseFloat(document.getElementById('traj-tf').value);
+
+      document.getElementById('traj-q0-val').textContent = q0;
+      document.getElementById('traj-qf-val').textContent = qf;
+      document.getElementById('traj-tf-val').textContent = tf.toFixed(1);
+
+      const a2 = (3 * (qf - q0)) / (tf * tf);
+      const a3 = (-2 * (qf - q0)) / (tf * tf * tf);
+
+      const resultBox = document.getElementById('traj-result-box');
+      resultBox.innerHTML = `<strong>Polynomial:</strong> $q(t) = ${q0} + ${a2.toFixed(2)}t^2 + ${a3.toFixed(2)}t^3$ ($0 \\le t \\le ${tf}s$)`;
+
+      const canvas = document.getElementById('traj-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#64748b'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(30, 20); ctx.lineTo(30, 210); ctx.lineTo(420, 210); ctx.stroke();
+        ctx.strokeStyle = '#E2725B'; ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let i = 0; i <= 50; i++) {
+          let t = (i / 50) * tf;
+          let pos = q0 + a2 * t * t + a3 * t * t * t;
+          let px = 30 + (t / tf) * 380;
+          let py = 210 - ((pos - Math.min(q0, qf)) / (Math.max(q0, qf) - Math.min(q0, qf) + 1)) * 170;
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      }
+    }
+
+    // Initialize Presentation & Render Math
+    document.addEventListener("DOMContentLoaded", function() {
+      updateSlide();
+      requestAnimationFrame(animateSim);
+      updateIKSim();
+      updateTrajSim();
+    });
+  </script>
+</body>
+</html>
