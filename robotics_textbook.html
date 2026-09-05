@@ -3794,6 +3794,35 @@
           </svg>
         </div>
 
+        <div class="callout callout-tip" style="margin-bottom: 24px;">
+          <div class="callout-title"><i class="fa-solid fa-lightbulb"></i> Intuitive Primer: What are arccos, atan, and atan2?</div>
+          <div class="callout-content">
+            <p style="margin-bottom: 10px;">If you haven't seen these terms before, here is the quick 1-minute breakdown:</p>
+            <ol style="margin-left: 20px; line-height: 1.8; font-size: 0.92rem;">
+              <li>
+                <strong>Forward Trig ($\cos, \sin$) — Angle $\to$ Ratio:</strong><br>
+                You feed it an <em>angle</em>, and it gives you a <em>number/ratio</em>.<br>
+                Example: $\cos(60^\circ) = 0.5$
+              </li>
+              <li>
+                <strong>Reverse Trig ($\arccos, \arcsin, \text{atan}$) — Ratio $\to$ Angle:</strong><br>
+                This is just the <strong>REVERSE</strong> of forward trig. You feed it a <em>number/ratio</em>, and it gives you back the <em>original angle</em>!<br>
+                Example: $\arccos(0.5) = 60^\circ$ &nbsp; (read as: <em>"the angle whose cosine is 0.5 is 60°"</em>).<br>
+                <ul>
+                  <li><strong>$\arccos$ (arc-cosine) or $\cos^{-1}$</strong>: Find angle from cosine value.</li>
+                  <li><strong>$\arcsin$ (arc-sine) or $\sin^{-1}$</strong>: Find angle from sine value.</li>
+                  <li><strong>$\text{atan}$ (arc-tangent) or $\tan^{-1}$</strong>: Find angle from tangent ratio ($\frac{\text{opposite}}{\text{adjacent}} = \frac{y}{x}$).</li>
+                </ul>
+              </li>
+              <li>
+                <strong>What is $\text{atan2}(y, x)$? (The 2-Argument Smart Arc-Tangent):</strong><br>
+                In robotics software and math, standard $\arccos$ only returns angles from $0^\circ$ to $180^\circ$ (it can't tell if a joint is pointing UP or DOWN).<br>
+                <strong>$\text{atan2}(y, x)$</strong> takes <em>two inputs</em>: $y = \sin\theta$ (vertical component) and $x = \cos\theta$ (horizontal component). By checking the $+/-$ signs of both $y$ and $x$, it instantly calculates the exact joint angle $\theta$ across all 4 quadrants ($[-180^\circ, +180^\circ]$).
+              </li>
+            </ol>
+          </div>
+        </div>
+
         <h3 class="subsection-heading"><i class="fa-solid fa-calculator"></i> 3.14.1 Algebraic Solution Method</h3>
 
         <p>
