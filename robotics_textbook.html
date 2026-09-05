@@ -3855,27 +3855,26 @@
           <p style="margin: 8px 0;">Isolating $\cos\theta_2$:</p>
           $$\mathbf{\cos\theta_2 = \frac{x_e^2 + y_e^2 - l_1^2 - l_2^2}{2 l_1 l_2}}$$
 
-          <p style="margin: 12px 0 6px 0; font-weight: 700; color: var(--accent-blue);">How do we get $\theta_2$ from $\cos\theta_2$? (Detailed Derivation):</p>
+          <p style="margin: 8px 0;">Taking the Inverse Cosine ($\cos^{-1}$ or $\arccos$):</p>
+          $$\mathbf{\theta_2 = \cos^{-1}\left(\frac{x_e^2 + y_e^2 - l_1^2 - l_2^2}{2 l_1 l_2}\right)}$$
+
+          <p style="margin: 12px 0 6px 0; font-weight: 700; color: var(--accent-blue);">Why & How do we convert $\cos^{-1}$ into $\text{atan2}$ for Robotics Code?</p>
           <ol style="margin-left: 20px; line-height: 1.8; font-size: 0.92rem;">
+            <li>
+              <strong>Standard $\cos^{-1}$ Notation:</strong><br>
+              In high school math, taking $\cos^{-1}$ gives the angle directly. But $\cos^{-1}$ only returns positive angles ($0^\circ$ to $180^\circ$). In robotics, joint 2 can bend both UP ($+\theta_2$) and DOWN ($-\theta_2$).
+            </li>
             <li>
               <strong>Derive $\sin\theta_2$ using Pythagorean Identity:</strong><br>
               $$\cos^2\theta_2 + \sin^2\theta_2 = 1 \implies \sin^2\theta_2 = 1 - \cos^2\theta_2 \implies \mathbf{\sin\theta_2 = \pm\sqrt{1 - \cos^2\theta_2}}$$
             </li>
             <li>
-              <strong>Why use $\text{atan2}(\sin\theta_2, \cos\theta_2)$ instead of $\arccos(\cos\theta_2)$?</strong><br>
-              Standard $\arccos(x)$ only returns values in $[0, \pi]$ (Quadrants I & II), so it cannot distinguish between positive and negative joint angles ($\theta$ vs $-\theta$). The $\text{atan2}(y, x)$ function uses both sine (y) and cosine (x) to compute angles unambiguously across all 4 quadrants $[-\pi, \pi]$ ($-180^\circ$ to $+180^\circ$).
-            </li>
-            <li>
-              <strong>Physical Meaning of the $\pm$ Sign (2 Multiple IK Solutions):</strong><br>
-              $$\mathbf{\theta_2 = \text{atan2}\left(\pm\sqrt{1 - \cos^2\theta_2}, \; \cos\theta_2\right)}$$
+              <strong>Convert $\cos^{-1}$ to $\text{atan2}$ Form for Full 4-Quadrant Precision:</strong><br>
+              $$\mathbf{\theta_2 = \cos^{-1}(\cos\theta_2) \equiv \text{atan2}\left(\pm\sqrt{1 - \cos^2\theta_2}, \; \cos\theta_2\right)}$$
               <ul>
-                <li><strong>$+\sqrt{1 - \cos^2\theta_2}$ ($\theta_2 > 0$):</strong> <strong>Elbow-Up</strong> configuration.</li>
-                <li><strong>$-\sqrt{1 - \cos^2\theta_2}$ ($\theta_2 < 0$):</strong> <strong>Elbow-Down</strong> configuration.</li>
+                <li><strong>$+\sqrt{1 - \cos^2\theta_2}$ ($\theta_2 > 0$):</strong> <strong>Elbow-Up</strong> configuration ($+\cos^{-1}$).</li>
+                <li><strong>$-\sqrt{1 - \cos^2\theta_2}$ ($\theta_2 < 0$):</strong> <strong>Elbow-Down</strong> configuration ($-\cos^{-1}$).</li>
               </ul>
-            </li>
-            <li>
-              <strong>Workspace Boundary Check:</strong><br>
-              If $|\cos\theta_2| \le 1$, the target $(x_e, y_e)$ is reachable. If $|\cos\theta_2| > 1$, the point lies completely outside the arm's reach.
             </li>
           </ol>
         </div>
