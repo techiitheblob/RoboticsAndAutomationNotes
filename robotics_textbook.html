@@ -2262,7 +2262,7 @@
             Rotates the reference frame around the $Z$-axis by angle $\theta$. The $Z$-coordinate remains invariant:
           </p>
           <div class="math-block">
-            $$T_{Rz}(\theta) = \begin{bmatrix} R_z(\theta) & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta & -\sin\theta & 0 & 0 \\ \sin\theta & \cos\theta & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+            $$T_{Rz}(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta & 0 & 0 \\ \sin\theta & \cos\theta & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           </div>
           <!-- SVG for Z-Rotation -->
           <div class="diagram-box">
@@ -2288,7 +2288,7 @@
             Translates the frame origin along the $Z$-axis by distance $d$:
           </p>
           <div class="math-block">
-            $$T_z(d) = \begin{bmatrix} I_{3 \times 3} & \begin{bmatrix} 0 \\ 0 \\ d \end{bmatrix} \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & d \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+            $$T_z(d) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & d \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           </div>
           <!-- SVG for Z-Translation -->
           <div class="diagram-box">
@@ -2314,7 +2314,7 @@
             Translates the frame origin along the $X$-axis by distance $a$ (link length):
           </p>
           <div class="math-block">
-            $$T_x(a) = \begin{bmatrix} I_{3 \times 3} & \begin{bmatrix} a \\ 0 \\ 0 \end{bmatrix} \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & a \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+            $$T_x(a) = \begin{bmatrix} 1 & 0 & 0 & a \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           </div>
           <!-- SVG for X-Translation -->
           <div class="diagram-box">
@@ -2339,7 +2339,7 @@
             Rotates the reference frame around the $X$-axis by link twist angle $\alpha$:
           </p>
           <div class="math-block">
-            $$T_{Rx}(\alpha) = \begin{bmatrix} R_x(\alpha) & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha & 0 \\ 0 & \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+            $$T_{Rx}(\alpha) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha & 0 \\ 0 & \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           </div>
           <!-- SVG for X-Rotation -->
           <div class="diagram-box">
@@ -2783,12 +2783,542 @@
           </table>
         </div>
 
+        <div class="example-card">
+          <div class="example-header">
+            <span class="example-badge">Elementary Matrix 1</span>
+            <div class="example-title">1. Rotation About $Z$-Axis by Angle $\theta$ ($T_{Rz}(\theta)$)</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Rotates the reference frame around the $Z$-axis by angle $\theta$. The $Z$-coordinate remains invariant:
+          </p>
+          <div class="math-block">
+            $$T_{Rz}(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta & 0 & 0 \\ \sin\theta & \cos\theta & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+          </div>
+          <!-- SVG for Z-Rotation -->
+          <div class="diagram-box">
+            <svg width="260" height="180" viewBox="0 0 260 180">
+              <line x1="80" y1="140" x2="200" y2="140" stroke="#0075A4" stroke-width="2.5" marker-end="url(#arrow-trans)"/>
+              <text x="210" y="145" fill="#0075A4" font-size="14" font-weight="bold">ŷ</text>
+              <line x1="80" y1="140" x2="80" y2="25" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green-trans)"/>
+              <text x="80" y="18" fill="#10b981" font-size="14" font-weight="bold">ẑ</text>
+              <line x1="80" y1="140" x2="35" y2="175" stroke="#E2725B" stroke-width="2.5"/>
+              <text x="22" y="180" fill="#E2725B" font-size="14" font-weight="bold">x̂</text>
+              <path d="M 65 50 A 25 25 0 0 1 95 50" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="105" y="45" fill="#f59e0b" font-size="14" font-weight="bold">θ (Rz)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-header">
+            <span class="example-badge">Elementary Matrix 2</span>
+            <div class="example-title">2. Translation Across $Z$-Axis by Distance $d$ ($T_z(d)$)</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Translates the frame origin along the $Z$-axis by distance $d$:
+          </p>
+          <div class="math-block">
+            $$T_z(d) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & d \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+          </div>
+          <!-- SVG for Z-Translation -->
+          <div class="diagram-box">
+            <svg width="260" height="180" viewBox="0 0 260 180">
+              <line x1="80" y1="140" x2="200" y2="140" stroke="#0075A4" stroke-width="2.5"/>
+              <text x="210" y="145" fill="#0075A4" font-size="14" font-weight="bold">ŷ</text>
+              <line x1="80" y1="140" x2="80" y2="25" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green-trans)"/>
+              <text x="80" y="18" fill="#10b981" font-size="14" font-weight="bold">ẑ</text>
+              <line x1="80" y1="140" x2="35" y2="175" stroke="#E2725B" stroke-width="2.5"/>
+              <text x="22" y="180" fill="#E2725B" font-size="14" font-weight="bold">x̂</text>
+              <line x1="95" y1="140" x2="95" y2="50" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="105" y="95" fill="#f59e0b" font-size="14" font-weight="bold">d</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-header">
+            <span class="example-badge">Elementary Matrix 3</span>
+            <div class="example-title">3. Translation Across $X$-Axis by Distance $a$ ($T_x(a)$)</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Translates the frame origin along the $X$-axis by distance $a$ (link length):
+          </p>
+          <div class="math-block">
+            $$T_x(a) = \begin{bmatrix} 1 & 0 & 0 & a \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+          </div>
+          <!-- SVG for X-Translation -->
+          <div class="diagram-box">
+            <svg width="260" height="180" viewBox="0 0 260 180">
+              <line x1="80" y1="140" x2="200" y2="140" stroke="#0075A4" stroke-width="2.5"/>
+              <text x="210" y="145" fill="#0075A4" font-size="14" font-weight="bold">ŷ</text>
+              <line x1="80" y1="140" x2="80" y2="25" stroke="#10b981" stroke-width="2.5"/>
+              <text x="80" y="18" fill="#10b981" font-size="14" font-weight="bold">ẑ</text>
+              <line x1="80" y1="140" x2="20" y2="185" stroke="#E2725B" stroke-width="3" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="10" y="190" fill="#E2725B" font-size="14" font-weight="bold">x̂</text>
+              <text x="55" y="180" fill="#f59e0b" font-size="14" font-weight="bold">a</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-header">
+            <span class="example-badge">Elementary Matrix 4</span>
+            <div class="example-title">4. Rotate About $X$-Axis by Angle $\alpha$ ($T_{Rx}(\alpha)$)</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Rotates the reference frame around the $X$-axis by link twist angle $\alpha$:
+          </p>
+          <div class="math-block">
+            $$T_{Rx}(\alpha) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha & 0 \\ 0 & \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+          </div>
+          <!-- SVG for X-Rotation -->
+          <div class="diagram-box">
+            <svg width="260" height="180" viewBox="0 0 260 180">
+              <line x1="80" y1="140" x2="200" y2="140" stroke="#0075A4" stroke-width="2.5"/>
+              <text x="210" y="145" fill="#0075A4" font-size="14" font-weight="bold">ŷ</text>
+              <line x1="80" y1="140" x2="80" y2="25" stroke="#10b981" stroke-width="2.5"/>
+              <text x="80" y="18" fill="#10b981" font-size="14" font-weight="bold">ẑ</text>
+              <line x1="80" y1="140" x2="35" y2="175" stroke="#E2725B" stroke-width="2.5"/>
+              <text x="22" y="180" fill="#E2725B" font-size="14" font-weight="bold">x̂</text>
+              <path d="M 45 150 A 20 20 0 0 0 65 175" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="75" y="170" fill="#f59e0b" font-size="14" font-weight="bold">α (Rx)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-coral); margin-top: 20px;">
+          <strong>Total Joint Transformation & Multi-Link Concatenation:</strong><br>
+          For Joint $[j-1]$ to $[j]$, the concatenated transformation matrix is:
+          $$\mathbf{T_{j-1}^j = T_{Rz}(\theta_j) \cdot T_z(d_j) \cdot T_x(a_j) \cdot T_{Rx}(\alpha_j)}$$
+          To obtain overall forward kinematics from base frame $0$ to end-effector frame $n$:
+          $$\mathbf{T_0^n = \prod_{j=1}^n T_{j-1}^j = T_0^1 \cdot T_1^2 \cdot T_2^3 \cdots T_{n-1}^n}$$
+        </div>
+      </section>
+
+      <!-- SECTION 3.8.2: WHY DO WE USE D-H PARAMETERS & APPLICATION RULES (HANDWRITTEN PAGE 2) -->
+      <section id="dh-rules-application">
+        <h3 class="subsection-heading"><i class="fa-solid fa-list-check"></i> 3.8.2 Why Use D-H Parameters & Fundamental Application Rules</h3>
+        
+        <div class="callout callout-tip" style="margin-bottom: 24px;">
+          <div class="callout-title"><i class="fa-solid fa-circle-question"></i> Why Do We Use Denavit-Hartenberg (D-H) Parameters?</div>
+          <div class="callout-content">
+            <ol style="margin-left: 20px; line-height: 1.8;">
+              <li><strong>Minimum Parameters Needed</strong>: It specifies the absolute minimum number of parameters (4 per link) needed to completely describe spatial 3D forward kinematics.</li>
+              <li><strong>Complete Kinematic Description</strong>: Knowing the D-H parameters gives complete knowledge of the kinematics of any serial robot manipulator.</li>
+              <li><strong>Universal Standard</strong>: Easily understood and implemented by robotics engineers worldwide.</li>
+              <li><strong>Computational Efficiency</strong>: Highly efficient for calculating differential kinematics (Jacobian matrices $\mathbf{J}(q)$) and rigid body dynamics (Euler-Lagrange / Newton-Euler formulations).</li>
+            </ol>
+          </div>
+        </div>
+
+        <h4 style="color: var(--accent-blue); font-size: 1.15rem; margin: 20px 0 12px 0;">3 Fundamental Rules for Applying D-H Parameters:</h4>
+
+        <div class="elements-grid">
+          <div class="element-card" style="border-top: 4px solid var(--accent-coral);">
+            <div class="card-header">
+              <div class="card-title">Rule 1: Actuate About Z-Axis</div>
+              <span class="card-badge" style="background: var(--accent-coral); color: #fff;">Primary Axis Rule</span>
+            </div>
+            <p style="font-size: 0.9rem;">
+              The axis of actuation for joint $j$ MUST be aligned with $Z_{j-1}$.
+            </p>
+            <ul style="font-size: 0.85rem; margin-left: 16px; margin-top: 8px; color: var(--text-muted);">
+              <li><strong>Revolute Joint</strong>: Rotate about $Z$-axis $\rightarrow T_{Rz}(q) = \begin{bmatrix} \cos q & -\sin q & 0 & 0 \\ \sin q & \cos q & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$</li>
+              <li><strong>Prismatic Joint</strong>: Translate about $Z$-axis by distance $q \rightarrow T_z(q) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & q \\ 0 & 0 & 0 & 1 \end{bmatrix}$</li>
+            </ul>
+          </div>
+
+          <div class="element-card" style="border-top: 4px solid var(--accent-emerald);">
+            <div class="card-header">
+              <div class="card-title">Rule 2: Perpendicular & Intersecting X-Axis</div>
+              <span class="card-badge" style="background: var(--accent-emerald); color: #fff;">Geometric Constraint</span>
+            </div>
+            <p style="font-size: 0.9rem;">
+              The axis $\hat{x}_j$ is perpendicular to $\hat{z}_{j-1}$ and intersects $\hat{z}_{j-1}$.
+            </p>
+            <div class="math-block" style="font-size: 0.9rem; margin-top: 8px;">
+              $$\hat{x}_j \perp \hat{z}_{j-1} \quad \text{and} \quad \hat{x}_j \text{ intersects } \hat{z}_{j-1}$$
+            </div>
+          </div>
+
+          <div class="element-card" style="border-top: 4px solid var(--accent-blue);">
+            <div class="card-header">
+              <div class="card-title">Rule 3: Implicit Y-Axis Derivation</div>
+              <span class="card-badge" style="background: var(--accent-blue); color: #fff;">Right-Hand Rule</span>
+            </div>
+            <p style="font-size: 0.9rem;">
+              The $Y$-axis is determined implicitly by the cross product of $Z$ and $X$:
+            </p>
+            <div class="math-block" style="font-size: 0.95rem; margin-top: 8px;">
+              $$\mathbf{\hat{y}_j = \hat{z}_j \times \hat{x}_j}$$
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning" style="margin-top: 24px;">
+          <div class="callout-title"><i class="fa-solid fa-sliders"></i> Substituting Joint Variable $q$ in Forward Kinematics Chain</div>
+          <div class="callout-content" style="font-size: 0.95rem;">
+            To get forward kinematics at a particular joint configuration vector $q$, substitute joint values into the $Z$-component of transformation chain:
+            $$\mathbf{T_{j-1}^j = \begin{cases} 
+              T_{Rz}(q) \cdot T_z(d_j) \cdot T_x(a_j) \cdot T_{Rx}(\alpha_j), & \text{for Revolute Joint } q \\ 
+              T_{Rz}(\theta_j) \cdot T_z(q) \cdot T_x(a_j) \cdot T_{Rx}(\alpha_j), & \text{for Prismatic Joint } q 
+            \end{cases}}$$
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3.8.3: LINK & JOINT PARAMETERS & 3 COMMON TRANSFORMS (HANDWRITTEN PAGES 3 & 4) -->
+      <section id="dh-common-configs">
+        <h3 class="subsection-heading"><i class="fa-solid fa-diagram-project"></i> 3.8.3 Link Parameters & 3 Common Joint-to-Joint Configurations</h3>
+        
+        <p>
+          Consider a revolute joint connected to another revolute joint through a rigid link. The 4 parameters are defined as:
+        </p>
+
+        <div class="elements-grid" style="margin-bottom: 24px;">
+          <div class="element-card">
+            <strong>$a_i$ (Link Length):</strong> Distance from $Z_i$ to $Z_{i+1}$ measured along $X_i$.
+          </div>
+          <div class="element-card">
+            <strong>$\alpha_i$ (Link Twist):</strong> Angle from $Z_i$ to $Z_{i+1}$ measured about $X_i$.
+          </div>
+          <div class="element-card">
+            <strong>$d_i$ (Joint Offset):</strong> Distance from $X_{i-1}$ to $X_i$ measured along $Z_i$. (Variable for prismatic, constant for revolute).
+          </div>
+          <div class="element-card">
+            <strong>$\theta_i$ (Joint Angle):</strong> Angle from $X_{i-1}$ to $X_i$ measured about $Z_i$. (Variable for revolute, constant for prismatic).
+          </div>
+        </div>
+
+        <h4 style="color: var(--accent-coral); font-size: 1.15rem; margin: 24px 0 16px 0;">3 Standard Joint-to-Joint Transforms:</h4>
+
+        <!-- Common Case 1 -->
+        <div class="example-card" style="border-left-color: var(--accent-coral);">
+          <div class="example-header">
+            <span class="example-badge" style="background: var(--accent-coral); color: #fff;">Case 1</span>
+            <div class="example-title">Joint Frames are Coincident (Perpendicular Axes)</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Joint frames $\{j\}$ and $\{j+1\}$ share origin ($d_j = 0, a_j = 0$) with a $90^\circ$ ($\pi/2$) axis twist:
+          </p>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Joint / Frame</th>
+                  <th>$\theta_j$</th>
+                  <th>$d_j$</th>
+                  <th>$a_j$</th>
+                  <th>$\alpha_j$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Joint $j \to j+1$</strong></td>
+                  <td>$q_j$</td>
+                  <td>$0$</td>
+                  <td>$0$</td>
+                  <td>$\pi / 2$</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="math-block">
+            $$T_j^{j+1} = T_{Rz}(q_j) \cdot T_z(0) \cdot T_x(0) \cdot T_{Rx}\left(\frac{\pi}{2}\right) = T_{Rz}(q_j) \cdot T_{Rx}\left(\frac{\pi}{2}\right)$$
+          </div>
+          <!-- SVG for Case 1 -->
+          <div class="diagram-box">
+            <svg width="320" height="180" viewBox="0 0 320 180">
+              <rect x="130" y="40" width="40" height="90" rx="6" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2"/>
+              <ellipse cx="150" cy="40" rx="20" ry="8" fill="#0075A4" opacity="0.3"/>
+              <path d="M 120 85 A 30 15 0 0 1 180 85" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="190" y="85" fill="#f59e0b" font-size="14" font-weight="bold">q_{j+1}</text>
+              <rect x="70" y="110" width="100" height="30" rx="6" fill="var(--bg-card)" stroke="#10b981" stroke-width="2"/>
+              <path d="M 170 125 A 15 25 0 0 1 170 145" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green-trans)"/>
+              <text x="195" y="140" fill="#10b981" font-size="14" font-weight="bold">q_j</text>
+              <text x="45" y="130" fill="var(--text-main)" font-size="14" font-weight="bold">{j}</text>
+              <text x="150" y="25" fill="var(--text-main)" font-size="14" font-weight="bold">{j+1}</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Common Case 2 -->
+        <div class="example-card" style="border-left-color: var(--accent-emerald);">
+          <div class="example-header">
+            <span class="example-badge" style="background: var(--accent-emerald); color: #fff;">Case 2</span>
+            <div class="example-title">Offset Joint Frames</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Joint axes are perpendicular ($\alpha_j = \pi/2$) but offset along the Z-axis by link height $l_j$:
+          </p>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Joint / Frame</th>
+                  <th>$\theta_j$</th>
+                  <th>$d_j$</th>
+                  <th>$a_j$</th>
+                  <th>$\alpha_j$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Joint $j \to j+1$</strong></td>
+                  <td>$q_j$</td>
+                  <td>$l_j$</td>
+                  <td>$0$</td>
+                  <td>$\pi / 2$</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="math-block">
+            $$T_j^{j+1} = T_{Rz}(q_j) \cdot T_z(l_j) \cdot T_x(0) \cdot T_{Rx}\left(\frac{\pi}{2}\right)$$
+          </div>
+          <!-- SVG for Case 2 -->
+          <div class="diagram-box">
+            <svg width="320" height="200" viewBox="0 0 320 200">
+              <rect x="140" y="20" width="40" height="60" rx="6" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2"/>
+              <rect x="140" y="120" width="40" height="60" rx="6" fill="var(--bg-card)" stroke="#10b981" stroke-width="2"/>
+              <line x1="160" y1="180" x2="160" y2="20" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4,4"/>
+              <line x1="120" y1="50" x2="120" y2="150" stroke="#E2725B" stroke-width="2" marker-end="url(#fbd-arrow-coral)"/>
+              <line x1="120" y1="150" x2="120" y2="50" stroke="#E2725B" stroke-width="2" marker-end="url(#fbd-arrow-coral)"/>
+              <text x="100" y="105" fill="#E2725B" font-size="15" font-weight="bold">l_j</text>
+              <text x="190" y="55" fill="#0075A4" font-size="14" font-weight="bold">{j+1}</text>
+              <text x="190" y="155" fill="#10b981" font-size="14" font-weight="bold">{j}</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Common Case 3 -->
+        <div class="example-card" style="border-left-color: var(--accent-blue);">
+          <div class="example-header">
+            <span class="example-badge" style="background: var(--accent-blue); color: #fff;">Case 3</span>
+            <div class="example-title">Parallel Joint Links</div>
+          </div>
+          <p style="font-size: 0.9rem;">
+            Joint axes are parallel ($\alpha_j = 0$) and separated along the X-axis by link length $l_j$:
+          </p>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Joint / Frame</th>
+                  <th>$\theta_j$</th>
+                  <th>$d_j$</th>
+                  <th>$a_j$</th>
+                  <th>$\alpha_j$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Joint $j \to j+1$</strong></td>
+                  <td>$q_j$</td>
+                  <td>$0$</td>
+                  <td>$l_j$</td>
+                  <td>$0$</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="math-block">
+            $$T_j^{j+1} = T_{Rz}(q_j) \cdot T_z(0) \cdot T_x(l_j) \cdot T_{Rx}(0) = T_{Rz}(q_j) \cdot T_x(l_j)$$
+          </div>
+          <!-- SVG for Case 3 -->
+          <div class="diagram-box">
+            <svg width="340" height="160" viewBox="0 0 340 160">
+              <rect x="50" y="50" width="40" height="70" rx="6" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2"/>
+              <rect x="230" y="50" width="40" height="70" rx="6" fill="var(--bg-card)" stroke="#10b981" stroke-width="2"/>
+              <line x1="70" y1="85" x2="250" y2="85" stroke="#E2725B" stroke-width="4"/>
+              <text x="150" y="75" fill="#E2725B" font-size="15" font-weight="bold" text-anchor="middle">l_j (Link Length)</text>
+              <text x="70" y="40" fill="#0075A4" font-size="14" font-weight="bold" text-anchor="middle">{j-1}</text>
+              <text x="250" y="40" fill="#10b981" font-size="14" font-weight="bold" text-anchor="middle">{j}</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3.9: STEP-BY-STEP D-H FRAME ASSIGNMENT ALGORITHM & TABLE CONSTRUCTION (HANDWRITTEN PAGE 5) -->
+      <section id="dh-assignment-algorithm">
+        <h2 class="section-heading">
+          <span class="sec-number">3.9</span> Systematic 5-Step D-H Frame Assignment Algorithm & D-H Table Construction
+        </h2>
+        <p>
+          To model any arbitrary robotic arm using the Denavit-Hartenberg convention, follow this rigorous <strong>5-step algorithm</strong> for assigning coordinate frames $\{0\}, \{1\}, \dots, \{n\}$:
+        </p>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-coral);">
+          <strong>Step 1: Identify Joints & Joint Axes</strong><br>
+          Identify all physical joints $1, 2, \dots, n$ and label their axes of motion $Z_0, Z_1, \dots, Z_{n-1}$.
+        </div>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-amber);">
+          <strong>Step 2: Assign Direction for Each Joint Axis (Right-Hand Rule)</strong><br>
+          Apply the Right-Hand Rule (RHR): Curl fingers of the right hand in the direction of positive joint rotation/motion $\rightarrow$ extended thumb indicates positive axis direction.
+        </div>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-emerald);">
+          <strong>Step 3: Assign $Z$-Axis to Joint Axes</strong><br>
+          Assign $Z_{i-1}$ along the axis of actuation for joint $i$.
+        </div>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-blue);">
+          <strong>Step 4: Assign Origin ($O_i$) to Each Joint Frame</strong><br>
+          Place origin $O_i$ at the intersection of $Z_i$ with the common perpendicular to $Z_{i-1}$, or at the joint center.
+        </div>
+
+        <div class="derivation-step" style="border-left-color: var(--accent-rose);">
+          <strong>Step 5: Assign $X$-Axis ($X_i$) Based on Geometry</strong><br>
+          &bull; <em>If $Z_{i-1}$ and $Z_i$ intersect</em>: Choose $X_i$ perpendicular to the plane containing both $Z_{i-1}$ and $Z_i$.<br>
+          &bull; <em>If $Z_{i-1}$ and $Z_i$ are parallel</em>: Choose $X_i$ along the common perpendicular line pointing from $Z_{i-1}$ to $Z_i$.
+        </div>
+
+        <!-- D-H Table Construction Guide Callout -->
+        <div class="callout callout-tip" style="margin-top: 28px;">
+          <div class="callout-title"><i class="fa-solid fa-table"></i> Standard D-H Parameter Table Construction Summary</div>
+          <div class="callout-content">
+            <p style="margin-bottom: 12px;">
+              For each link frame transformation from Frame $i-1$ to Frame $i$:
+            </p>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Axis ($i$)</th>
+                    <th>$\theta_i$ (Joint Angle)</th>
+                    <th>$d_i$ (Joint Offset)</th>
+                    <th>$a_i$ (Link Length)</th>
+                    <th>$\alpha_i$ (Link Twist)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Frame $0 \to 1$</strong></td>
+                    <td>Angle from $X_{i-1}$ to $X_i$ measured about $Z_i$</td>
+                    <td>Distance from $X_{i-1}$ to $X_i$ measured along $Z_i$</td>
+                    <td>Distance from $Z_{i-1}$ to $Z_i$ measured along $X_i$</td>
+                    <td>Angle from $Z_{i-1}$ to $Z_i$ measured about $X_i$</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Frame $1 \to 2$</strong></td>
+                    <td>$\theta_2$ (Variable if Revolute)</td>
+                    <td>$d_2$ (Variable if Prismatic)</td>
+                    <td>$a_2$</td>
+                    <td>$\alpha_2$</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Frame $2 \to 3$</strong></td>
+                    <td>$\theta_3$</td>
+                    <td>$d_3$</td>
+                    <td>$a_3$</td>
+                    <td>$\alpha_3$</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3.10: WORKED EXAMPLE 1 — 3-DOF REVOLUTE (RRR) MANIPULATOR (HANDWRITTEN PAGE 1) -->
+      <section id="dh-example-rrr">
+        <h2 class="section-heading">
+          <span class="sec-number">3.10</span> Worked Exam Problem: Forward Kinematics of a 3-DOF Revolute (RRR) Manipulator via D-H Matrix Method
+        </h2>
+        <p>
+          Derive the step-by-step D-H parameter table and $4 \times 4$ homogeneous transformation matrices for a spatial <strong>3-DOF Articulated (RRR) Revolute Manipulator</strong> consisting of base vertical height $l_1$, upper arm length $l_2$, and forearm length $l_3$.
+        </p>
+
+        <!-- SVG Diagram for 3-DOF RRR Manipulator -->
+        <div class="diagram-box" style="flex-direction: column; margin: 24px 0; padding: 24px;">
+          <span style="font-size: 0.92rem; color: var(--accent-coral); font-weight: 700; margin-bottom: 16px;">
+            <i class="fa-solid fa-robot"></i> Figure 3.10: Kinematic Structure & D-H Coordinate Frame Assignment of 3-DOF Articulated (RRR) Manipulator
+          </span>
+          <svg width="560" height="320" viewBox="0 0 560 320">
+            <!-- Base Cylinder {0} -->
+            <rect x="70" y="200" width="50" height="90" rx="8" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2.5"/>
+            <ellipse cx="95" cy="200" rx="25" ry="10" fill="#0075A4" opacity="0.3"/>
+            <line x1="95" y1="290" x2="95" y2="150" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4,4"/>
+            <text x="50" y="245" fill="var(--text-main)" font-size="14" font-weight="bold">Base {0}</text>
+            <line x1="25" y1="245" x2="25" y2="155" stroke="#E2725B" stroke-width="2" marker-end="url(#fbd-arrow-coral)"/>
+            <text x="10" y="200" fill="#E2725B" font-size="14" font-weight="bold">l₁</text>
+
+            <!-- Base Joint Rotation q1 -->
+            <path d="M 70 175 A 25 12 0 0 1 120 175" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
+            <text x="130" y="170" fill="#f59e0b" font-size="14" font-weight="bold">q₁ (Rz)</text>
+
+            <!-- Shoulder Joint Cylinder {1} -->
+            <circle cx="95" cy="140" r="18" fill="var(--bg-card)" stroke="#10b981" stroke-width="2.5"/>
+            <text x="95" y="145" fill="#10b981" font-size="12" font-weight="bold" text-anchor="middle">{1}</text>
+
+            <!-- Link 2 (Upper Arm, length l2) -->
+            <line x1="95" y1="140" x2="290" y2="90" stroke="#0075A4" stroke-width="6"/>
+            <circle cx="290" cy="90" r="16" fill="var(--bg-card)" stroke="#f59e0b" stroke-width="2.5"/>
+            <text x="290" y="94" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">{2}</text>
+            <text x="190" y="100" fill="#0075A4" font-size="15" font-weight="bold" text-anchor="middle">Link 2 (l₂)</text>
+
+            <!-- Joint 2 Rotation q2 -->
+            <path d="M 75 125 A 20 20 0 0 1 115 125" fill="none" stroke="#E2725B" stroke-width="2" marker-end="url(#fbd-arrow-coral)"/>
+            <text x="120" y="115" fill="#E2725B" font-size="13" font-weight="bold">q₂</text>
+
+            <!-- Link 3 (Forearm, length l3) -->
+            <line x1="290" y1="90" x2="470" y2="50" stroke="#10b981" stroke-width="5"/>
+            <rect x="470" y="35" width="30" height="30" rx="4" fill="var(--bg-card)" stroke="#E2725B" stroke-width="2.5"/>
+            <text x="485" y="55" fill="#E2725B" font-size="13" font-weight="bold" text-anchor="middle">E</text>
+            <text x="380" y="55" fill="#10b981" font-size="15" font-weight="bold" text-anchor="middle">Link 3 (l₃)</text>
+
+            <!-- Joint 3 Rotation q3 -->
+            <path d="M 270 75 A 18 18 0 0 1 310 75" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#fbd-arrow-coral)"/>
+            <text x="315" y="70" fill="#f59e0b" font-size="13" font-weight="bold">q₃</text>
+          </svg>
+        </div>
+
+        <h3 class="subsection-heading"><i class="fa-solid fa-table"></i> Step 1: D-H Parameter Table for 3-DOF RRR Arm</h3>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Frame Transformation ($i-1 \to i$)</th>
+                <th>Joint Angle ($\theta_i$)</th>
+                <th>Joint Offset ($d_i$)</th>
+                <th>Link Length ($a_i$)</th>
+                <th>Link Twist ($\alpha_i$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Frame $\{0\} \to \{1\}$</strong></td>
+                <td>$q_1$ (Variable)</td>
+                <td>$l_1$</td>
+                <td>$0$</td>
+                <td>$\pi / 2$</td>
+              </tr>
+              <tr>
+                <td><strong>Frame $\{1\} \to \{2\}$</strong></td>
+                <td>$q_2$ (Variable)</td>
+                <td>$0$</td>
+                <td>$l_2$</td>
+                <td>$0$</td>
+              </tr>
+              <tr>
+                <td><strong>Frame $\{2\} \to \{3\}$</strong></td>
+                <td>$q_3$ (Variable)</td>
+                <td>$0$</td>
+                <td>$l_3$</td>
+                <td>$0$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <h3 class="subsection-heading"><i class="fa-solid fa-square-root-variable"></i> Step 2: Individual Homogeneous Transformation Matrices</h3>
 
         <div class="derivation-step">
           <strong>1. Transformation Matrix $T_0^1$ (Base $\{0\}$ to Shoulder $\{1\}$):</strong>
           $$T_0^1 = T_{Rz}(q_1) \cdot T_z(l_1) \cdot T_x(0) \cdot T_{Rx}\left(\frac{\pi}{2}\right)$$
-          $$T_0^1 = \begin{bmatrix} R_z(q_1) & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} I_{3 \times 3} & \begin{bmatrix} 0 \\ 0 \\ l_1 \end{bmatrix} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} I_{3 \times 3} & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} R_x\left(\frac{\pi}{2}\right) & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix}$$
+          $$T_0^1 = \begin{bmatrix} \cos q_1 & -\sin q_1 & 0 & 0 \\ \sin q_1 & \cos q_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & l_1 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           $$T_0^1 = \begin{bmatrix} 
             \cos q_1 & 0 & \sin q_1 & 0 \\ 
             \sin q_1 & 0 & -\cos q_1 & 0 \\ 
@@ -2800,7 +3330,7 @@
         <div class="derivation-step" style="border-left-color: var(--accent-emerald);">
           <strong>2. Transformation Matrix $T_1^2$ (Shoulder $\{1\}$ to Elbow $\{2\}$):</strong>
           $$T_1^2 = T_{Rz}(q_2) \cdot T_z(0) \cdot T_x(l_2) \cdot T_{Rx}(0)$$
-          $$T_1^2 = \begin{bmatrix} R_z(q_2) & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} I_{3 \times 3} & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} I_{3 \times 3} & \begin{bmatrix} l_2 \\ 0 \\ 0 \end{bmatrix} \\ 0_{1 \times 3} & 1 \end{bmatrix} \begin{bmatrix} I_{3 \times 3} & 0_{3 \times 1} \\ 0_{1 \times 3} & 1 \end{bmatrix}$$
+          $$T_1^2 = \begin{bmatrix} \cos q_2 & -\sin q_2 & 0 & 0 \\ \sin q_2 & \cos q_2 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & l_2 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           $$T_1^2 = \begin{bmatrix} 
             \cos q_2 & -\sin q_2 & 0 & l_2 \cos q_2 \\ 
             \sin q_2 & \cos q_2 & 0 & l_2 \sin q_2 \\ 
@@ -2812,6 +3342,7 @@
         <div class="derivation-step" style="border-left-color: var(--accent-blue);">
           <strong>3. Transformation Matrix $T_2^3$ (Elbow $\{2\}$ to End-Effector $\{3\}$):</strong>
           $$T_2^3 = T_{Rz}(q_3) \cdot T_z(0) \cdot T_x(l_3) \cdot T_{Rx}(0)$$
+          $$T_2^3 = \begin{bmatrix} \cos q_3 & -\sin q_3 & 0 & 0 \\ \sin q_3 & \cos q_3 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & l_3 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           $$T_2^3 = \begin{bmatrix} 
             \cos q_3 & -\sin q_3 & 0 & l_3 \cos q_3 \\ 
             \sin q_3 & \cos q_3 & 0 & l_3 \sin q_3 \\ 
@@ -3168,7 +3699,7 @@
         </p>
 
         <div class="math-block">
-          $$T_0^e = \begin{bmatrix} R_0^e & P_0^e \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} 
+          $$T_0^e = \begin{bmatrix} 
             r_{11} & r_{12} & r_{13} & x_e \\ 
             r_{21} & r_{22} & r_{23} & y_e \\ 
             r_{31} & r_{32} & r_{33} & z_e \\ 
@@ -3608,7 +4139,7 @@
         </p>
 
         <div class="math-block">
-          $$T_d = \begin{bmatrix} R_d & P_d \\ 0_{1 \times 3} & 1 \end{bmatrix}, \qquad T_k(\theta) = \begin{bmatrix} R_k & P_k \\ 0_{1 \times 3} & 1 \end{bmatrix}$$
+          $$T_d = \begin{bmatrix} R_d & P_d \\ 0 & 0 & 0 & 1 \end{bmatrix}, \qquad T_k(\theta) = \begin{bmatrix} R_k & P_k \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
         </div>
 
         <div class="callout callout-tip" style="margin-top: 20px;">
@@ -4326,7 +4857,7 @@
 
           <div class="derivation-step">
             <strong>Step 2: Construct $4 \times 4$ Homogeneous Transformation Matrix $T_1^2$:</strong>
-            $$T_1^2 = \begin{bmatrix} R_1^2 & P_{1,\text{origin}}^2 \\ 0_{1 \times 3} & 1 \end{bmatrix} = \begin{bmatrix} 0.866 & -0.500 & 0 & 10 \\ 0.500 & 0.866 & 0 & 5 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+            $$T_1^2 = \begin{bmatrix} 0.866 & -0.500 & 0 & 10 \\ 0.500 & 0.866 & 0 & 5 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
           </div>
 
           <div class="derivation-step" style="border-left-color: var(--accent-emerald);">
