@@ -3807,23 +3807,45 @@
 
         <div class="derivation-step">
           <strong>Step 1: Solve for $\theta_2$ by Squaring and Adding:</strong><br>
-          Square both equations and add them together:
-          $$x_e^2 + y_e^2 = \big(l_1 \cos\theta_1 + l_2 \cos(\theta_1+\theta_2)\big)^2 + \big(l_1 \sin\theta_1 + l_2 \sin(\theta_1+\theta_2)\big)^2$$
-          Using the cosine trigonometric identity $\cos(A-B) = \cos A \cos B + \sin A \sin B$:
+          <p style="margin: 8px 0;">Square both forward kinematics equations:</p>
+          $$x_e^2 = \Big(l_1 \cos\theta_1 + l_2 \cos(\theta_1+\theta_2)\Big)^2 = l_1^2 \cos^2\theta_1 + l_2^2 \cos^2(\theta_1+\theta_2) + 2 l_1 l_2 \cos\theta_1 \cos(\theta_1+\theta_2)$$
+          $$y_e^2 = \Big(l_1 \sin\theta_1 + l_2 \sin(\theta_1+\theta_2)\Big)^2 = l_1^2 \sin^2\theta_1 + l_2^2 \sin^2(\theta_1+\theta_2) + 2 l_1 l_2 \sin\theta_1 \sin(\theta_1+\theta_2)$$
+
+          <p style="margin: 8px 0;">Add $x_e^2$ and $y_e^2$ together and group like terms:</p>
+          $$x_e^2 + y_e^2 = l_1^2 \Big(\cos^2\theta_1 + \sin^2\theta_1\Big) + l_2^2 \Big(\cos^2(\theta_1+\theta_2) + \sin^2(\theta_1+\theta_2)\Big) + 2 l_1 l_2 \Big[\cos(\theta_1+\theta_2)\cos\theta_1 + \sin(\theta_1+\theta_2)\sin\theta_1\Big]$$
+
+          <p style="margin: 8px 0;">Apply Pythagorean identity $\cos^2\phi + \sin^2\phi = 1$ to the first two terms:</p>
+          $$x_e^2 + y_e^2 = l_1^2(1) + l_2^2(1) + 2 l_1 l_2 \Big[\cos(\theta_1+\theta_2)\cos\theta_1 + \sin(\theta_1+\theta_2)\sin\theta_1\Big]$$
+
+          <p style="margin: 8px 0;">Apply the Cosine Difference Identity $\cos(A-B) = \cos A \cos B + \sin A \sin B$ with $A = \theta_1 + \theta_2$ and $B = \theta_1$ (so $A - B = \theta_2$):</p>
+          $$\cos(\theta_1+\theta_2)\cos\theta_1 + \sin(\theta_1+\theta_2)\sin\theta_1 = \cos\Big((\theta_1+\theta_2) - \theta_1\Big) = \cos\theta_2$$
+
+          <p style="margin: 8px 0;">Substituting this back gives the simplified expression:</p>
           $$x_e^2 + y_e^2 = l_1^2 + l_2^2 + 2 l_1 l_2 \cos\theta_2$$
-          Solving for $\cos\theta_2$:
+
+          <p style="margin: 8px 0;">Isolating $\cos\theta_2$:</p>
           $$\mathbf{\cos\theta_2 = \frac{x_e^2 + y_e^2 - l_1^2 - l_2^2}{2 l_1 l_2}}$$
-          Thus, joint angle $\theta_2$ is obtained cleanly using $\text{atan2}$:
+
+          <p style="margin: 8px 0;">Thus, joint angle $\theta_2$ is solved cleanly using $\text{atan2}$ (accounting for elbow-up and elbow-down configurations):</p>
           $$\mathbf{\theta_2 = \text{atan2}\left(\pm\sqrt{1 - \cos^2\theta_2}, \; \cos\theta_2\right)}$$
         </div>
 
         <div class="derivation-step" style="border-left-color: var(--accent-emerald);">
           <strong>Step 2: Solve for $\theta_1$ Algebraically:</strong><br>
-          Expanding $\cos(\theta_1+\theta_2)$ and $\sin(\theta_1+\theta_2)$ in the FK equations:
-          $$x_e = (l_1 + l_2 \cos\theta_2)\cos\theta_1 - (l_2 \sin\theta_2)\sin\theta_1$$
-          $$y_e = (l_2 \sin\theta_2)\cos\theta_1 + (l_1 + l_2 \cos\theta_2)\sin\theta_1$$
-          Solving this linear system of equations for $\cos\theta_1$ and $\sin\theta_1$:
-          $$\mathbf{\theta_1 = \text{atan2}(y_e, x_e) - \text{atan2}(l_2 \sin\theta_2, \; l_1 + l_2 \cos\theta_2)}$$
+          <p style="margin: 8px 0;">Expand the sum-of-angles identities $\cos(\theta_1+\theta_2) = \cos\theta_1 \cos\theta_2 - \sin\theta_1 \sin\theta_2$ and $\sin(\theta_1+\theta_2) = \sin\theta_1 \cos\theta_2 + \cos\theta_1 \sin\theta_2$ in the FK equations:</p>
+          $$x_e = l_1 \cos\theta_1 + l_2(\cos\theta_1 \cos\theta_2 - \sin\theta_1 \sin\theta_2) = (l_1 + l_2 \cos\theta_2)\cos\theta_1 - (l_2 \sin\theta_2)\sin\theta_1$$
+          $$y_e = l_1 \sin\theta_1 + l_2(\sin\theta_1 \cos\theta_2 + \cos\theta_1 \sin\theta_2) = (l_1 + l_2 \cos\theta_2)\sin\theta_1 + (l_2 \sin\theta_2)\cos\theta_1$$
+
+          <p style="margin: 8px 0;">Define constant shorthand coefficients $k_1 = l_1 + l_2 \cos\theta_2$ and $k_2 = l_2 \sin\theta_2$:</p>
+          $$x_e = k_1 \cos\theta_1 - k_2 \sin\theta_1$$
+          $$y_e = k_1 \sin\theta_1 + k_2 \cos\theta_1$$
+
+          <p style="margin: 8px 0;">Express $(k_1, k_2)$ in polar coordinates $k_1 = r \cos\gamma$ and $k_2 = r \sin\gamma$ where $\gamma = \text{atan2}(k_2, k_1) = \text{atan2}(l_2 \sin\theta_2, \; l_1 + l_2 \cos\theta_2)$:</p>
+          $$x_e = r \cos\gamma \cos\theta_1 - r \sin\gamma \sin\theta_1 = r \cos(\theta_1 + \gamma)$$
+          $$y_e = r \cos\gamma \sin\theta_1 + r \sin\gamma \cos\theta_1 = r \sin(\theta_1 + \gamma)$$
+
+          <p style="margin: 8px 0;">Taking the ratio $\frac{y_e}{x_e} = \tan(\theta_1 + \gamma)$ gives:</p>
+          $$\theta_1 + \gamma = \text{atan2}(y_e, x_e) \implies \mathbf{\theta_1 = \text{atan2}(y_e, x_e) - \text{atan2}(l_2 \sin\theta_2, \; l_1 + l_2 \cos\theta_2)}$$
         </div>
 
         <h3 class="subsection-heading"><i class="fa-solid fa-compass-drafting"></i> 3.14.2 Geometric Solution Method (Law of Cosines)</h3>
