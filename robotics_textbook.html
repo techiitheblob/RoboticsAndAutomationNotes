@@ -3395,7 +3395,7 @@
     window.addEventListener('scroll', updateActiveNav);
     window.addEventListener('load', updateActiveNav);
 
-    document.addEventListener("DOMContentLoaded", function() {
+    function renderKaTeX() {
       if (window.renderMathInElement) {
         renderMathInElement(document.body, {
           delimiters: [
@@ -3404,11 +3404,20 @@
             {left: "\\(", right: "\\)", display: false},
             {left: "\\[", right: "\\]", display: true}
           ],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
           throwOnError: false
         });
       }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      renderKaTeX();
       runEulerCalc();
       updateFkSim();
+    });
+
+    window.addEventListener("load", function() {
+      renderKaTeX();
     });
 
     /* --- Simulator 3: Forward Kinematics 2-Link Arm --- */
