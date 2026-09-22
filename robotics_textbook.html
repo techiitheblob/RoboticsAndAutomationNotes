@@ -1341,14 +1341,139 @@
       </div>
 
       <!-- SECTION 2.1: ROTATIONAL SYSTEM DERIVATION -->
-      <section>
+      <section id="rotational-system-derivation">
         <h2 class="section-heading">
-          <span class="sec-number">2.1</span> Mathematical Modeling of a Rotational System
+          <span class="sec-number">2.1</span> Mathematical Modeling & Derivation of a Rotational System
         </h2>
         <p>
-          Consider a rotational system consisting of a rotating disc of mass moment of inertia $J$, connected to a fixed wall via a shaft of torsional stiffness $K$. The disc rotates inside a viscous fluid medium with viscous friction coefficient $f$, driven by an applied external torque $T(t)$.
+          A rotational mechanical system involves fixed-axis rotation of rigid bodies. The three basic elemental building blocks of rotational mechanical systems are:
         </p>
+
+        <div class="elements-grid" style="margin: 20px 0;">
+          <div class="element-card" style="border-top: 3px solid var(--accent-blue);">
+            <div class="card-header">
+              <div class="card-title">1. Moment of Inertia ($J$)</div>
+              <span class="card-badge">Kinetic Storage</span>
+            </div>
+            <p style="font-size: 0.88rem;">Opposes angular acceleration: $T_J = J \frac{d^2\theta}{dt^2} = J \ddot{\theta}$</p>
+          </div>
+          <div class="element-card" style="border-top: 3px solid var(--accent-emerald);">
+            <div class="card-header">
+              <div class="card-title">2. Torsional Spring ($K$)</div>
+              <span class="card-badge">Potential Storage</span>
+            </div>
+            <p style="font-size: 0.88rem;">Restoring torque of shaft: $T_K = K \theta(t)$</p>
+          </div>
+          <div class="element-card" style="border-top: 3px solid var(--accent-coral);">
+            <div class="card-header">
+              <div class="card-title">3. Viscous Friction ($f$)</div>
+              <span class="card-badge">Energy Dissipation</span>
+            </div>
+            <p style="font-size: 0.88rem;">Damping drag from fluid/bearings: $T_f = f \frac{d\theta}{dt} = f \dot{\theta}$</p>
+          </div>
+        </div>
+
+        <div class="example-card" style="margin: 24px 0; border-color: var(--accent-blue);">
+          <div class="example-header">
+            <span class="example-badge" style="background: var(--accent-blue); color: #fff;">Physical Setup & Free Body Diagram</span>
+            <div class="example-title">Rotating Disc with Torsional Restraint and Viscous Resistance</div>
+          </div>
+
+          <p style="font-size: 0.92rem; line-height: 1.6;">
+            Let us consider a rotational system consisting of a rotating disc of mass moment of inertia $J$, connected to a rigid fixed support via a torsional shaft of stiffness $K$. The disc rotates in a viscous fluid medium with viscous friction coefficient $f$. Let $T(t)$ be the external driving torque applied to rotate the disc through angular displacement $\theta(t)$.
+          </p>
+
+          <div class="diagram-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0;">
+            <!-- (a) Physical System Schematic -->
+            <div class="diagram-box" style="flex-direction: column; background: var(--bg-secondary); padding: 15px; border-radius: 8px;">
+              <span style="font-size: 0.88rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 8px;">(a) Actual Physical System Schematic</span>
+              <svg width="300" height="200" viewBox="0 0 300 200">
+                <!-- Fixed Wall -->
+                <line x1="30" y1="30" x2="30" y2="170" stroke="#64748b" stroke-width="4"/>
+                <line x1="20" y1="40" x2="30" y2="50" stroke="#64748b" stroke-width="2"/>
+                <line x1="20" y1="70" x2="30" y2="80" stroke="#64748b" stroke-width="2"/>
+                <line x1="20" y1="100" x2="30" y2="110" stroke="#64748b" stroke-width="2"/>
+                <line x1="20" y1="130" x2="30" y2="140" stroke="#64748b" stroke-width="2"/>
+                <line x1="20" y1="160" x2="30" y2="170" stroke="#64748b" stroke-width="2"/>
+
+                <!-- Shaft with Stiffness K -->
+                <line x1="30" y1="100" x2="150" y2="100" stroke="#94a3b8" stroke-width="6"/>
+                <text x="85" y="90" fill="#0075A4" font-size="13" font-weight="bold" text-anchor="middle">Shaft (K)</text>
+
+                <!-- Rotating Disc (J) in perspective ellipse -->
+                <ellipse cx="170" cy="100" rx="35" ry="65" fill="var(--bg-card)" stroke="#0075A4" stroke-width="3"/>
+                <ellipse cx="185" cy="100" rx="35" ry="65" fill="none" stroke="#0075A4" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <line x1="170" y1="35" x2="185" y2="35" stroke="#0075A4" stroke-width="2"/>
+                <line x1="170" y1="165" x2="185" y2="165" stroke="#0075A4" stroke-width="2"/>
+                <text x="175" y="105" fill="#0075A4" font-size="20" font-weight="bold" text-anchor="middle">J</text>
+
+                <!-- Angle theta reference dashed -->
+                <line x1="170" y1="100" x2="170" y2="40" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <line x1="170" y1="100" x2="188" y2="44" stroke="#10b981" stroke-width="2"/>
+                <path d="M 170 65 A 35 35 0 0 1 182 68" fill="none" stroke="#10b981" stroke-width="2"/>
+                <text x="173" y="60" fill="#10b981" font-size="12" font-weight="bold">θ</text>
+
+                <!-- Driving Torque T -->
+                <path d="M 185 45 A 40 40 0 0 1 205 75" fill="none" stroke="#E2725B" stroke-width="3" marker-end="url(#fbd-arrow-coral)"/>
+                <text x="215" y="55" fill="#E2725B" font-size="15" font-weight="bold">T(t)</text>
+
+                <!-- Viscous fluid bath at base -->
+                <rect x="130" y="168" width="90" height="24" fill="rgba(0,117,164,0.15)" stroke="#0075A4" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="175" y="184" fill="#0075A4" font-size="11" font-weight="bold" text-anchor="middle">Viscous fluid (f)</text>
+              </svg>
+            </div>
+
+            <!-- (b) Free Body Diagram (FBD) -->
+            <div class="diagram-box" style="flex-direction: column; background: var(--bg-secondary); padding: 15px; border-radius: 8px;">
+              <span style="font-size: 0.88rem; color: var(--accent-emerald); font-weight: 700; margin-bottom: 8px;">(b) Free Body Diagram (FBD) of Disc</span>
+              <svg width="300" height="200" viewBox="0 0 300 200">
+                <!-- Disc Block representation J -->
+                <rect x="110" y="55" width="80" height="85" rx="8" fill="var(--bg-card)" stroke="#10b981" stroke-width="2.5"/>
+                <text x="150" y="105" fill="var(--text-main)" font-size="24" font-weight="bold" text-anchor="middle">J</text>
+
+                <!-- Applied Driving Torque T(t) (clockwise) -->
+                <path d="M 205 70 A 30 30 0 0 1 205 125" fill="none" stroke="#E2725B" stroke-width="3" marker-end="url(#fbd-arrow-coral)"/>
+                <text x="235" y="102" fill="#E2725B" font-size="16" font-weight="bold">T(t)</text>
+
+                <!-- Restoring Spring Torque K*theta (counter-clockwise) -->
+                <path d="M 95 125 A 30 30 0 0 1 95 70" fill="none" stroke="#0075A4" stroke-width="2.5" marker-end="url(#arrow-trans)"/>
+                <text x="35" y="75" fill="#0075A4" font-size="13" font-weight="bold">T_K = Kθ</text>
+
+                <!-- Viscous Drag Torque f*dtheta/dt (counter-clockwise) -->
+                <path d="M 125 155 A 30 30 0 0 1 175 155" fill="none" stroke="#E2725B" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
+                <text x="150" y="185" fill="#E2725B" font-size="13" font-weight="bold" text-anchor="middle">T_f = f(dθ/dt)</text>
+
+                <!-- Output Angular Acceleration theta_ddot -->
+                <path d="M 125 35 A 30 30 0 0 1 175 35" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green-trans)"/>
+                <text x="150" y="24" fill="#10b981" font-size="13" font-weight="bold" text-anchor="middle">θ̈(t), θ̇(t)</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="derivation-step" style="border-left-color: var(--accent-coral);">
+            <strong>Step 1: Torque Balance from Newton's Second Law for Rotation ($\sum T = J \alpha = J \ddot{\theta}$):</strong>
+            <p style="margin: 8px 0; font-size: 0.95rem;">
+              Summing all clockwise and counter-clockwise torques acting on the inertia disc:
+            </p>
+            $$T(t) - T_K(t) - T_f(t) = J \frac{d^2\theta}{dt^2}$$
+            $$T(t) - K \theta(t) - f \frac{d\theta}{dt} = J \frac{d^2\theta}{dt^2}$$
+          </div>
+
+          <div class="derivation-step" style="border-left-color: var(--accent-emerald); margin-top: 15px;">
+            <strong>Step 2: Standard Second-Order Governing Differential Equation:</strong>
+            <p style="margin: 8px 0; font-size: 0.95rem;">
+              Rearranging terms with output variables $\theta(t)$ on the left-hand side and driving input torque $T(t)$ on the right-hand side yields the classical <strong>linear constant-coefficient 2nd-order ODE</strong> describing system dynamics:
+            </p>
+            <div class="math-block" style="font-size: 1.15rem; color: var(--accent-coral); font-weight: bold;">
+              $$\mathbf{J \frac{d^2\theta(t)}{dt^2} + f \frac{d\theta(t)}{dt} + K \theta(t) = T(t)}$$
+            </div>
+            <p style="margin: 8px 0 0 0; font-size: 0.88rem; color: var(--text-muted);">
+              Or in compact dot notation: $\mathbf{J \ddot{\theta} + f \dot{\theta} + K \theta = T(t)}$.
+            </p>
+          </div>
+        </div>
       </section>
+
 
       <!-- SECTION 2.1.1: SOLVED WORKED EXAMPLE -->
       <div id="rotational-worked-example" style="scroll-margin-top: 80px;">
