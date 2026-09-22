@@ -1444,72 +1444,410 @@
         </div>
       </div>
 
-      <!-- SECTION 2.2: GANTRY ROBOT OVERVIEW -->
+            <!-- SECTION 2.2: GANTRY ROBOT OVERVIEW & INDUSTRIAL MECHANISM -->
       <section id="gantry-intro">
         <h2 class="section-heading">
-          <span class="sec-number">2.2</span> Gantry (Cartesian) Robot Industrial Architecture
+          <span class="sec-number">2.2</span> Gantry (Cartesian) Robot Industrial Architecture & Applications
         </h2>
         <p>
-          A <strong>Gantry Robot</strong> (or Cartesian Crane Robot) is an industrial robot widely deployed on manufacturing and automated production lines. It consists of an overhead body frame/beam spanning an $(x, y, z)$ workspace, along which a traveling cart trolley propels a dynamic robotic manipulator arm.
+          A <strong>Gantry Robot</strong> (also known as a Cartesian Crane Robot) is an industrial robotic manipulator widely deployed in manufacturing, assembly lines, and high-throughput automated material transfer systems. It utilizes a robot arm or toolhead mounted upon an overhead gantry body frame that translates linearly across defined orthogonal Cartesian axes ($(x, y, z)$).
         </p>
+
+        <div class="gantry-cards" style="margin: 24px 0;">
+          <div class="gantry-card">
+            <div class="gantry-card-title"><i class="fa-solid fa-bullseye" style="color: var(--accent-blue);"></i> 1. High Precision & Rigidity</div>
+            <p style="font-size: 0.88rem; margin: 0; line-height: 1.5;">Supported overhead on dual rigid guide rails, preventing cantilever deflection and granting sub-millimeter positional repeatability.</p>
+          </div>
+          <div class="gantry-card">
+            <div class="gantry-card-title"><i class="fa-solid fa-maximize" style="color: var(--accent-coral);"></i> 2. Scalable Large Workspace</div>
+            <p style="font-size: 0.88rem; margin: 0; line-height: 1.5;">Can span tens of meters across factory floors, warehousing bays, and shipping depots without geometric singularities.</p>
+          </div>
+          <div class="gantry-card">
+            <div class="gantry-card-title"><i class="fa-solid fa-weight-hanging" style="color: var(--accent-emerald);"></i> 3. Heavy Payload Capacity</div>
+            <p style="font-size: 0.88rem; margin: 0; line-height: 1.5;">Structural closed-frame configuration carries heavy payloads (automotive frames, aerospace fuselages, pallets) with high stability.</p>
+          </div>
+          <div class="gantry-card">
+            <div class="gantry-card-title"><i class="fa-solid fa-repeat" style="color: #eab308;"></i> 4. Fast Repetitive Cycle Time</div>
+            <p style="font-size: 0.88rem; margin: 0; line-height: 1.5;">Consistent kinematic decoupling between translational axes enables high-speed pick-and-place, welding, assembly, and dispensing.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin: 20px 0;">
+          <div class="callout-title"><i class="fa-solid fa-industry"></i> Primary Industrial Applications</div>
+          <div class="callout-content" style="font-size: 0.92rem;">
+            <strong>Pick and Place:</strong> Rapid transfer of parts between conveyor belts, CNC machines, and storage trays.<br>
+            <strong>Welding & Cutting:</strong> Multi-axis laser cutting, plasma torch cutting, and arc welding of massive sheets.<br>
+            <strong>Assembly Lines:</strong> Automotive sub-assembly, electronics dispensing, component insertion, and fastening.<br>
+            <strong>Material Handling:</strong> Palletizing, heavy container crane management, and automated warehousing retrieval.
+          </div>
+        </div>
       </section>
 
-      <!-- SECTION 2.3: NON-LINEAR GANTRY ROBOT MODELING -->
+      <!-- SECTION 2.3: NON-LINEAR GANTRY ROBOT MODELING & STEP-BY-STEP DERIVATION -->
       <section id="gantry-modeling">
         <h2 class="section-heading">
-          <span class="sec-number">2.3</span> Complete Non-Linear Dynamic Modeling of a Gantry Crane Manipulator
+          <span class="sec-number">2.3</span> Complete Mathematical Modeling & Derivation of a Gantry Robot System
         </h2>
         <p>
-          Consider a 2-DOF Gantry Crane Robot consisting of a trolley cart mass $M$ moving horizontally along a rail (displacement $x_1$), driven by traction force $F$. A rotating robot arm of mass $m$, length $a$, and moment of inertia $J$ is pivoted to the cart, driven by motor joint torque $T$, with angular position $\theta$.
+          Consider the planar dynamic model of a <strong>Gantry Crane Robot with a Rotating Arm</strong> as illustrated below.
         </p>
+
+        <!-- System Architecture & Schematic Diagram -->
+        <div class="callout callout-tip" style="margin: 20px 0;">
+          <div class="callout-title"><i class="fa-solid fa-gear"></i> Physical System Description & Nomenclature</div>
+          <div class="callout-content" style="font-size: 0.92rem;">
+            <ul style="margin-left: 20px; line-height: 1.7;">
+              <li><strong>Trolley / Crane Cart (Mass $M$):</strong> The main gantry body travels along a horizontal linear rail with displacement $x_1(t)$. It is propelled by an external horizontal traction actuator force $F(t)$. Ground wheel normal reaction forces are $R_1$ and $R_2$.</li>
+              <li><strong>Rotating Robot Arm (Mass $m$):</strong> A robotic link of mass $m$ and moment of inertia $J$ about its pivot center is attached to the moving crane cart at pivot point $(x_1, y_1)$. Driven by an actuator torque $T(t)$ located on the crane body.</li>
+              <li><strong>Center of Gravity (CG) Distance ($a$):</strong> The distance from the pivot point to the arm's center of gravity $(x_2, y_2)$ along its longitudinal axis is $a$.</li>
+              <li><strong>Angular Position ($	heta$):</strong> The arm rotation angle $	heta(t)$ is measured counterclockwise with respect to the negative vertical axis (downward vertical equilibrium).</li>
+              <li><strong>End-Effector (Hand / Gripper):</strong> At the distal end of the arm, a gripper/tool is attached for picking up objects (illustrated along the arm axis).</li>
+              <li><strong>Coupling Reaction Forces ($F_x, F_y$):</strong> The joint internal pin reactions exerted between the crane body and the rotating link. By Newton's third law: if the pin acts on the cart with $(F_x, F_y)$, it acts on the arm with equal and opposite force $(-F_x, -F_y)$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SCHEMATIC SVG -->
+        <div class="diagram-box" style="flex-direction: column; padding: 25px; margin: 25px 0; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color);">
+          <span style="font-size: 0.95rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 12px;">
+            <i class="fa-solid fa-compass-drafting"></i> Physical System Schematic: Gantry Crane Body ($M$) with Articulated Rotating Arm ($m$)
+          </span>
+          <svg width="560" height="320" viewBox="0 0 560 320" style="max-width: 100%; height: auto;">
+            <defs>
+              <marker id="sch-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0075A4" />
+              </marker>
+              <marker id="sch-arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#E2725B" />
+              </marker>
+              <marker id="sch-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+              </marker>
+            </defs>
+            <!-- Fixed datum wall -->
+            <line x1="60" y1="30" x2="60" y2="290" stroke="var(--text-muted)" stroke-width="4"/>
+            <line x1="50" y1="40" x2="60" y2="50" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="70" x2="60" y2="80" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="100" x2="60" y2="110" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="130" x2="60" y2="140" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="160" x2="60" y2="170" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="190" x2="60" y2="200" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="220" x2="60" y2="230" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="250" x2="60" y2="260" stroke="var(--text-muted)" stroke-width="2"/>
+            <line x1="50" y1="280" x2="60" y2="290" stroke="var(--text-muted)" stroke-width="2"/>
+
+            <!-- Rail -->
+            <rect x="130" y="145" width="240" height="8" fill="#475569" rx="2"/>
+            <line x1="130" y1="155" x2="370" y2="155" stroke="#334155" stroke-width="2" stroke-dasharray="4,4"/>
+
+            <!-- Cart Body M -->
+            <rect x="180" y="80" width="130" height="55" rx="6" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2.5"/>
+            <text x="245" y="115" fill="var(--text-main)" font-size="20" font-weight="bold" text-anchor="middle">M</text>
+            <!-- Wheels -->
+            <circle cx="205" cy="140" r="6" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+            <circle cx="285" cy="140" r="6" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+
+            <!-- Traction Force F -->
+            <line x1="120" y1="107" x2="175" y2="107" stroke="#E2725B" stroke-width="3" marker-end="url(#sch-arrow-coral)"/>
+            <text x="145" y="97" fill="#E2725B" font-size="15" font-weight="bold">F(t)</text>
+
+            <!-- Displacement x1 dimension -->
+            <line x1="60" y1="50" x2="245" y2="50" stroke="#0075A4" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <line x1="60" y1="45" x2="60" y2="55" stroke="#0075A4" stroke-width="2"/>
+            <line x1="245" y1="45" x2="245" y2="80" stroke="#0075A4" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <line x1="70" y1="50" x2="235" y2="50" stroke="#0075A4" stroke-width="1.5" marker-end="url(#sch-arrow)" marker-start="url(#sch-arrow)"/>
+            <text x="150" y="42" fill="#0075A4" font-size="14" font-weight="bold">x₁</text>
+
+            <!-- Arm Pivot -->
+            <circle cx="245" cy="107" r="7" fill="#0075A4" stroke="#fff" stroke-width="1.5"/>
+            <!-- Torque arrow around pivot -->
+            <path d="M 230 95 A 18 18 0 0 1 262 95" fill="none" stroke="#E2725B" stroke-width="2" marker-end="url(#sch-arrow-coral)"/>
+            <text x="245" y="88" fill="#E2725B" font-size="13" font-weight="bold" text-anchor="middle">T(t)</text>
+
+            <!-- Rotating Arm (angle theta) -->
+            <line x1="245" y1="107" x2="400" y2="265" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+            <!-- Arm center axis line -->
+            <line x1="245" y1="107" x2="440" y2="305" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="445" y="310" fill="#10b981" font-size="12" font-style="italic">axis</text>
+
+            <!-- Vertical reference line for theta -->
+            <line x1="245" y1="107" x2="245" y2="270" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <!-- Arc for theta -->
+            <path d="M 245 200 A 93 93 0 0 0 300 185" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#sch-arrow)"/>
+            <text x="275" y="215" fill="#f59e0b" font-size="15" font-weight="bold">θ</text>
+
+            <!-- Center of Mass CG of Arm at (320, 184) -->
+            <circle cx="320" cy="184" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+            <text x="335" y="180" fill="var(--text-main)" font-size="14" font-weight="bold">m, J</text>
+            <!-- Gravity vector mg -->
+            <line x1="320" y1="184" x2="320" y2="235" stroke="#E2725B" stroke-width="2.5" marker-end="url(#sch-arrow-coral)"/>
+            <text x="326" y="225" fill="#E2725B" font-size="13" font-weight="bold">mg</text>
+
+            <!-- Dimension a (pivot to CG) -->
+            <line x1="255" y1="98" x2="330" y2="175" stroke="#64748b" stroke-width="1.5"/>
+            <line x1="250" y1="94" x2="260" y2="102" stroke="#64748b" stroke-width="1.5"/>
+            <line x1="325" y1="171" x2="335" y2="179" stroke="#64748b" stroke-width="1.5"/>
+            <text x="302" y="132" fill="#64748b" font-size="14" font-weight="bold">a</text>
+
+            <!-- CG displacement x2 dimension -->
+            <line x1="60" y1="184" x2="320" y2="184" stroke="#0075A4" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="70" y1="184" x2="310" y2="184" stroke="#0075A4" stroke-width="1.5" marker-end="url(#sch-arrow)" marker-start="url(#sch-arrow)"/>
+            <text x="180" y="178" fill="#0075A4" font-size="13" font-weight="bold">x₂</text>
+
+            <!-- End effector gripper at (400, 265) -->
+            <circle cx="400" cy="265" r="4" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+            <path d="M 390 275 L 400 265 L 415 270" fill="none" stroke="#10b981" stroke-width="2.5"/>
+            <text x="425" y="270" fill="#10b981" font-size="12" font-style="italic">Hand / Gripper</text>
+          </svg>
+        </div>
 
         <!-- SUBSECTION 2.3.1: DEDICATED GANTRY FREE BODY DIAGRAMS (FBD) -->
         <div id="gantry-fbd" style="scroll-margin-top: 80px;">
-          <h3 style="color: var(--accent-blue); font-size: 1.15rem; margin: 32px 0 16px;">
-            <i class="fa-solid fa-project-diagram"></i> Step 1: Free Body Diagrams (FBD) & Force Balance Equations
+          <h3 style="color: var(--accent-blue); font-size: 1.2rem; margin: 36px 0 16px;">
+            <i class="fa-solid fa-balance-scale"></i> Step 1: Free Body Diagrams (FBD) & Equations of Motion
           </h3>
+          <p>
+            To obtain the system equations, we isolate the two bodies: the <strong>Trolley Cart (Mass $M$)</strong> and the <strong>Rotating Arm (Mass $m$)</strong>, applying Newton's second law ($\Sigma \mathbf{F} = m \mathbf{a}$) and rotational torque balance ($\Sigma 	au = J lpha$).
+          </p>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0;">
-            <div class="diagram-box" style="flex-direction: column;">
-              <span style="font-size: 0.88rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 12px;">(a) Free Body Diagram: Cart Mass M</span>
-              <svg width="270" height="240" viewBox="0 0 270 240">
-                <rect x="90" y="80" width="110" height="70" rx="8" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2.5"/>
-                <text x="145" y="122" fill="var(--text-main)" font-size="24" font-weight="bold" text-anchor="middle">M</text>
-                <line x1="30" y1="115" x2="85" y2="115" stroke="#E2725B" stroke-width="3" marker-end="url(#fbd-arrow-coral)"/>
-                <text x="55" y="105" fill="#E2725B" font-size="15" font-weight="bold">F</text>
-                <line x1="110" y1="180" x2="110" y2="152" stroke="#10b981" stroke-width="2.5" marker-end="url(#fbd-arrow-green)"/>
-                <text x="100" y="195" fill="#10b981" font-size="13" font-weight="bold">R₁</text>
-                <line x1="180" y1="180" x2="180" y2="152" stroke="#10b981" stroke-width="2.5" marker-end="url(#fbd-arrow-green)"/>
-                <text x="175" y="195" fill="#10b981" font-size="13" font-weight="bold">R₂</text>
-                <line x1="145" y1="150" x2="145" y2="195" stroke="#E2725B" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
-                <text x="130" y="215" fill="#E2725B" font-size="13" font-weight="bold">Mg</text>
-                <line x1="175" y1="100" x2="225" y2="100" stroke="#0075A4" stroke-width="2" marker-end="url(#fbd-arrow-blue)"/>
-                <text x="215" y="92" fill="#0075A4" font-size="13" font-weight="bold">Fₓ</text>
-                <line x1="145" y1="90" x2="145" y2="40" stroke="#0075A4" stroke-width="2" marker-end="url(#fbd-arrow-blue)"/>
-                <text x="155" y="55" fill="#0075A4" font-size="13" font-weight="bold">Fᵧ</text>
+            <!-- FBD CART -->
+            <div class="diagram-box" style="flex-direction: column; padding: 20px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
+              <span style="font-size: 0.95rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 12px;">
+                (a) Free Body Diagram: Cart Mass $M$
+              </span>
+              <svg width="280" height="240" viewBox="0 0 280 240">
+                <rect x="85" y="80" width="110" height="65" rx="8" fill="var(--bg-card)" stroke="#0075A4" stroke-width="2.5"/>
+                <text x="140" y="120" fill="var(--text-main)" font-size="24" font-weight="bold" text-anchor="middle">M</text>
+                
+                <!-- Traction force F -->
+                <line x1="25" y1="112" x2="80" y2="112" stroke="#E2725B" stroke-width="3" marker-end="url(#sch-arrow-coral)"/>
+                <text x="50" y="102" fill="#E2725B" font-size="14" font-weight="bold">F(t)</text>
+                
+                <!-- Reactions R1, R2 -->
+                <line x1="105" y1="185" x2="105" y2="148" stroke="#10b981" stroke-width="2.5" marker-end="url(#sch-arrow-green)"/>
+                <text x="95" y="200" fill="#10b981" font-size="13" font-weight="bold">R₁</text>
+                <line x1="175" y1="185" x2="175" y2="148" stroke="#10b981" stroke-width="2.5" marker-end="url(#sch-arrow-green)"/>
+                <text x="170" y="200" fill="#10b981" font-size="13" font-weight="bold">R₂</text>
+                
+                <!-- Weight Mg -->
+                <line x1="140" y1="145" x2="140" y2="195" stroke="#E2725B" stroke-width="2.5" marker-end="url(#sch-arrow-coral)"/>
+                <text x="125" y="215" fill="#E2725B" font-size="14" font-weight="bold">Mg</text>
+                
+                <!-- Pin Reaction Forces on Cart from Arm: Fx right, Fy downwards -->
+                <line x1="160" y1="112" x2="215" y2="112" stroke="#0075A4" stroke-width="2.5" marker-end="url(#sch-arrow)"/>
+                <text x="218" y="106" fill="#0075A4" font-size="13" font-weight="bold">Fₓ</text>
+                <line x1="140" y1="95" x2="140" y2="50" stroke="#0075A4" stroke-width="2.5" marker-end="url(#sch-arrow)"/>
+                <text x="150" y="62" fill="#0075A4" font-size="13" font-weight="bold">Fᵧ</text>
+
+                <!-- Torque on cart (reaction from motor) -->
+                <path d="M 125 90 A 15 15 0 0 1 155 90" fill="none" stroke="#E2725B" stroke-width="2" marker-end="url(#sch-arrow-coral)"/>
+                <text x="140" y="82" fill="#E2725B" font-size="12" font-weight="bold" text-anchor="middle">T</text>
               </svg>
             </div>
 
-            <div class="diagram-box" style="flex-direction: column;">
-              <span style="font-size: 0.88rem; color: var(--accent-emerald); font-weight: 700; margin-bottom: 12px;">(b) Free Body Diagram: Rotating Arm Link m</span>
-              <svg width="270" height="240" viewBox="0 0 270 240">
-                <line x1="80" y1="40" x2="200" y2="180" stroke="#10b981" stroke-width="7" stroke-linecap="round"/>
-                <circle cx="80" cy="40" r="5" fill="#0075A4"/>
-                <line x1="80" y1="40" x2="35" y2="40" stroke="#0075A4" stroke-width="2.5" marker-end="url(#fbd-arrow-blue)"/>
-                <text x="35" y="30" fill="#0075A4" font-size="13" font-weight="bold">Fₓ</text>
-                <line x1="80" y1="40" x2="80" y2="85" stroke="#0075A4" stroke-width="2.5" marker-end="url(#fbd-arrow-blue)"/>
-                <text x="90" y="75" fill="#0075A4" font-size="13" font-weight="bold">Fᵧ</text>
-                <circle cx="140" cy="110" r="6" fill="#f59e0b"/>
-                <line x1="140" y1="110" x2="140" y2="165" stroke="#E2725B" stroke-width="2.5" marker-end="url(#fbd-arrow-coral)"/>
-                <text x="148" y="150" fill="#E2725B" font-size="14" font-weight="bold">mg</text>
+            <!-- FBD ARM -->
+            <div class="diagram-box" style="flex-direction: column; padding: 20px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
+              <span style="font-size: 0.95rem; color: var(--accent-emerald); font-weight: 700; margin-bottom: 12px;">
+                (b) Free Body Diagram: Rotating Arm Link $m$
+              </span>
+              <svg width="280" height="240" viewBox="0 0 280 240">
+                <!-- Arm body -->
+                <line x1="80" y1="45" x2="200" y2="180" stroke="#10b981" stroke-width="7" stroke-linecap="round"/>
+                
+                <!-- Pivot Pin -->
+                <circle cx="80" cy="45" r="6" fill="#0075A4" stroke="#fff" stroke-width="1.5"/>
+                
+                <!-- Equal and opposite pin reaction on arm: Fx to left, Fy upwards -->
+                <line x1="80" y1="45" x2="25" y2="45" stroke="#0075A4" stroke-width="2.5" marker-end="url(#sch-arrow)"/>
+                <text x="20" y="35" fill="#0075A4" font-size="13" font-weight="bold">Fₓ</text>
+                <line x1="80" y1="45" x2="80" y2="95" stroke="#0075A4" stroke-width="2.5" marker-end="url(#sch-arrow)"/>
+                <text x="90" y="85" fill="#0075A4" font-size="13" font-weight="bold">Fᵧ</text>
+                
+                <!-- Applied Actuator Joint Torque T on Arm -->
+                <path d="M 65 35 A 15 15 0 0 0 95 35" fill="none" stroke="#E2725B" stroke-width="2" marker-end="url(#sch-arrow-coral)"/>
+                <text x="80" y="25" fill="#E2725B" font-size="12" font-weight="bold" text-anchor="middle">T</text>
+
+                <!-- Arm Center of Gravity CG (m) -->
+                <circle cx="140" cy="112" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+                <text x="152" y="108" fill="var(--text-main)" font-size="13" font-weight="bold">m, J</text>
+                
+                <!-- Arm Weight mg downwards -->
+                <line x1="140" y1="112" x2="140" y2="165" stroke="#E2725B" stroke-width="2.5" marker-end="url(#sch-arrow-coral)"/>
+                <text x="148" y="155" fill="#E2725B" font-size="13" font-weight="bold">mg</text>
+                
+                <!-- Arm longitudinal distance a -->
+                <line x1="90" y1="40" x2="148" y2="105" stroke="#64748b" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <text x="122" y="68" fill="#64748b" font-size="13" font-weight="bold">a</text>
               </svg>
             </div>
           </div>
 
-          <div class="derivation-step" style="border-left-color: var(--accent-blue);">
-            <strong>Final Coupled Non-Linear Gantry Equations:</strong><br>
-            $$\mathbf{(M + m) \ddot{x}_1 + m a \cos\theta \, \ddot{\theta} - m a \sin\theta \, \dot{\theta}^2 = F(t)}$$
-            $$\mathbf{(J + m a^2) \ddot{\theta} + m a \cos\theta \, \ddot{x}_1 + m a g \sin\theta = T(t)}$$
+          <!-- FORCE BALANCE DERIVATION -->
+          <div class="callout callout-warning" style="margin: 20px 0;">
+            <div class="callout-title"><i class="fa-solid fa-calculator"></i> Equations of Motion from the Free Body Diagrams</div>
+            <div class="callout-content" style="font-size: 0.93rem;">
+              <p><strong>1. Force Balance on Cart Mass $M$:</strong></p>
+              Along the horizontal $x$-direction ($x_1$):
+              <div class="math-block">
+                $$M \ddot{x}_1 = F_x + F 	ag{1}$$
+              </div>
+              Along the vertical $y$-direction ($y_1$):
+              <div class="math-block">
+                $$M \ddot{y}_1 = R_1 + R_2 - F_y - M g 	ag{2}$$
+              </div>
+              <em>Since the cart is constrained strictly to the horizontal rail, vertical motion $\ddot{y}_1 = 0$, so the normal wheel reactions satisfy $R_1 + R_2 = M g + F_y$.</em>
+
+              <p style="margin-top: 18px;"><strong>2. Force & Torque Balance on Rotating Arm Link $m$:</strong></p>
+              Let $(x_2, y_2)$ denote the instantaneous Cartesian coordinates of the center of gravity (CG) of the arm. Newton's second law in the plane yields:
+              <div class="math-block">
+                $$m \ddot{x}_2 = -F_x \implies F_x = -m \ddot{x}_2 	ag{3}$$
+              </div>
+              <div class="math-block">
+                $$m \ddot{y}_2 = F_y - m g \implies F_y = m \ddot{y}_2 + m g 	ag{4}$$
+              </div>
+              Taking the sum of moments (torques) about the center of mass of the arm:
+              $$\Sigma 	au_{CG} = J \ddot{	heta}$$
+              The reaction forces at the pivot pin produce moments about the CG:
+              $F_x$ has perpendicular lever arm $a \cos	heta$, and $F_y$ has perpendicular lever arm $-a \sin	heta$. Adding the motor joint torque $T$:
+              <div class="math-block">
+                $$J \ddot{	heta} = a F_x \cos	heta - a F_y \sin	heta + T 	ag{5}$$
+              </div>
+            </div>
+          </div>
+
+          <h3 style="color: var(--accent-blue); font-size: 1.2rem; margin: 36px 0 16px;">
+            <i class="fa-solid fa-link"></i> Step 2: Combining Governing Equations (Eliminating Joint Reactions $F_x, F_y$)
+          </h3>
+
+          <div class="derivation-step" style="border-left-color: var(--accent-coral);">
+            <strong>Equation A (Translational Cart Equation):</strong><br>
+            Substitute Equation (3) into Equation (1):
+            $$M \ddot{x}_1 = (-m \ddot{x}_2) + F$$
+            Rearranging yields the total horizontal momentum balance:
+            <div class="math-block">
+              $$M \ddot{x}_1 + m \ddot{x}_2 = F 	ag{6}$$
+            </div>
+          </div>
+
+          <div class="derivation-step" style="border-left-color: var(--accent-emerald);">
+            <strong>Equation B (Rotational Arm Torque Equation):</strong><br>
+            Substitute $F_x = -m \ddot{x}_2$ and $F_y = m \ddot{y}_2 + m g$ into torque balance Equation (5):
+            $$J \ddot{	heta} = a (-m \ddot{x}_2) \cos	heta - a (m \ddot{y}_2 + m g) \sin	heta + T$$
+            Expanding and grouping terms to the left-hand side:
+            $$J \ddot{	heta} = -a m \ddot{x}_2 \cos	heta - a m \ddot{y}_2 \sin	heta - a m g \sin	heta + T$$
+            <div class="math-block">
+              $$J \ddot{	heta} + a m \ddot{x}_2 \cos	heta + a m \ddot{y}_2 \sin	heta + a m g \sin	heta = T 	ag{7}$$
+            </div>
+          </div>
+
+          <h3 style="color: var(--accent-blue); font-size: 1.2rem; margin: 36px 0 16px;">
+            <i class="fa-solid fa-code-fork"></i> Step 3: Kinematic Relations (Connecting Arm CG to Cart & Angle $	heta$)
+          </h3>
+
+          <p>
+            The Cartesian coordinates of the arm's center of gravity $(x_2, y_2)$ are purely geometric functions of the cart position $x_1$ and rotation angle $	heta$:
+          </p>
+
+          <div class="math-block">
+            $$x_2 = x_1 + a \sin	heta$$
+            $$y_2 = -a \cos	heta$$
+          </div>
+
+          <p>
+            To express the accelerations $\ddot{x}_2$ and $\ddot{y}_2$ in terms of generalized coordinates $(\ddot{x}_1, 	heta, \dot{	heta}, \ddot{	heta})$, we differentiate twice with respect to time $t$ using the chain and product rules:
+          </p>
+
+          <div class="callout callout-info" style="margin: 16px 0;">
+            <div class="callout-title"><i class="fa-solid fa-square-root-variable"></i> Full Differentiation Step-by-Step (Made Simple)</div>
+            <div class="callout-content" style="font-size: 0.92rem;">
+              <p><strong>Horizontal Coordinate $x_2$:</strong></p>
+              $$	ext{1st derivative (velocity): } \dot{x}_2 = \dot{x}_1 + a \cos	heta \cdot \dot{	heta}$$
+              $$	ext{2nd derivative (acceleration): } \ddot{x}_2 = rac{d}{dt}\left(\dot{x}_1 + a \cos	heta \cdot \dot{	heta}ight)$$
+              Applying product rule to $(a \cos	heta \cdot \dot{	heta})$:
+              $$rac{d}{dt}(a \cos	heta) \cdot \dot{	heta} + a \cos	heta \cdot rac{d}{dt}(\dot{	heta}) = -a \sin	heta \, \dot{	heta}^2 + a \cos	heta \, \ddot{	heta}$$
+              <div class="math-block">
+                $$\mathbf{\ddot{x}_2 = \ddot{x}_1 - a \sin	heta \, \dot{	heta}^2 + a \cos	heta \, \ddot{	heta}} 	ag{8}$$
+              </div>
+
+              <p style="margin-top: 16px;"><strong>Vertical Coordinate $y_2$:</strong></p>
+              $$	ext{1st derivative (velocity): } \dot{y}_2 = -a (-\sin	heta \cdot \dot{	heta}) = a \sin	heta \cdot \dot{	heta}$$
+              $$	ext{2nd derivative (acceleration): } \ddot{y}_2 = rac{d}{dt}\left(a \sin	heta \cdot \dot{	heta}ight)$$
+              Applying product rule to $(a \sin	heta \cdot \dot{	heta})$:
+              $$rac{d}{dt}(a \sin	heta) \cdot \dot{	heta} + a \sin	heta \cdot rac{d}{dt}(\dot{	heta}) = a \cos	heta \, \dot{	heta}^2 + a \sin	heta \, \ddot{	heta}$$
+              <div class="math-block">
+                $$\mathbf{\ddot{y}_2 = a \cos	heta \, \dot{	heta}^2 + a \sin	heta \, \ddot{	heta}} 	ag{9}$$
+              </div>
+            </div>
+          </div>
+
+          <h3 style="color: var(--accent-blue); font-size: 1.2rem; margin: 36px 0 16px;">
+            <i class="fa-solid fa-square-check"></i> Step 4: Final Substitution into Dynamic Equations
+          </h3>
+
+          <!-- Sub into 6 -->
+          <div class="derivation-step" style="border-left-color: var(--accent-coral); margin-bottom: 20px;">
+            <strong style="color: var(--accent-coral); font-size: 1.05rem;">1. Deriving Final Force Equation (Substitute (8) into (6)):</strong>
+            <p style="margin: 8px 0;">Recall Equation (6): $M \ddot{x}_1 + m \ddot{x}_2 = F$. Replacing $\ddot{x}_2$ with Equation (8):</p>
+            $$M \ddot{x}_1 + m \left[ \ddot{x}_1 - a \sin	heta \, \dot{	heta}^2 + a \cos	heta \, \ddot{	heta} ight] = F$$
+            Distributing $m$:
+            $$M \ddot{x}_1 + m \ddot{x}_1 - m a \sin	heta \, \dot{	heta}^2 + m a \cos	heta \, \ddot{	heta} = F$$
+            Grouping like acceleration terms:
+            <div class="math-block" style="background: rgba(226, 114, 91, 0.08); border-left: 4px solid var(--accent-coral); padding: 14px;">
+              $$\mathbf{(M + m) \ddot{x}_1 + m a \cos	heta \, \ddot{	heta} - m a \sin	heta \, \dot{	heta}^2 = F(t)}$$
+            </div>
+          </div>
+
+          <!-- Sub into 7 -->
+          <div class="derivation-step" style="border-left-color: var(--accent-emerald); margin-bottom: 20px;">
+            <strong style="color: var(--accent-emerald); font-size: 1.05rem;">2. Deriving Final Torque Equation (Substitute (8) and (9) into (7)):</strong>
+            <p style="margin: 8px 0;">Recall Equation (7): $J \ddot{	heta} + m a \cos	heta \, \ddot{x}_2 + m a \sin	heta \, \ddot{y}_2 + m a g \sin	heta = T$.</p>
+            <p>Insert $\ddot{x}_2 = \ddot{x}_1 - a \sin	heta \, \dot{	heta}^2 + a \cos	heta \, \ddot{	heta}$ and $\ddot{y}_2 = a \cos	heta \, \dot{	heta}^2 + a \sin	heta \, \ddot{	heta}$:</p>
+            $$J \ddot{	heta} + m a \cos	heta \left[ \ddot{x}_1 - a \sin	heta \, \dot{	heta}^2 + a \cos	heta \, \ddot{	heta} ight] + m a \sin	heta \left[ a \cos	heta \, \dot{	heta}^2 + a \sin	heta \, \ddot{	heta} ight] + m a g \sin	heta = T$$
+            
+            <p style="margin: 10px 0 4px;">Now let's expand carefully term-by-term:</p>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+              <li>First term: $J \ddot{	heta}$</li>
+              <li>Expanding bracket 1: $m a \cos	heta \, \ddot{x}_1 - m a^2 \sin	heta \cos	heta \, \dot{	heta}^2 + m a^2 \cos^2	heta \, \ddot{	heta}$</li>
+              <li>Expanding bracket 2: $+ m a^2 \sin	heta \cos	heta \, \dot{	heta}^2 + m a^2 \sin^2	heta \, \ddot{	heta}$</li>
+              <li>Gravity term: $+ m a g \sin	heta$</li>
+            </ul>
+
+            <div class="callout callout-tip" style="margin: 12px 0;">
+              <div class="callout-title"><i class="fa-solid fa-wand-magic-sparkles"></i> The Magic Trigonometric Simplification:</div>
+              <div class="callout-content" style="font-size: 0.93rem;">
+                Notice what happens to the centrifugal terms involving $\dot{	heta}^2$:
+                $$- m a^2 \sin	heta \cos	heta \, \dot{	heta}^2 + m a^2 \sin	heta \cos	heta \, \dot{	heta}^2 = 0 \quad 	ext{(they cancel out completely!)}$$
+                Notice what happens to the acceleration terms $\ddot{	heta}$:
+                $$m a^2 \cos^2	heta \, \ddot{	heta} + m a^2 \sin^2	heta \, \ddot{	heta} = m a^2 (\cos^2	heta + \sin^2	heta) \ddot{	heta} = m a^2 \ddot{	heta}$$
+                Because by fundamental trigonometry: $\mathbf{\cos^2	heta + \sin^2	heta = 1}$.
+              </div>
+            </div>
+
+            <p style="margin: 10px 0 4px;">Collecting the remaining terms together:</p>
+            $$(J + m a^2) \ddot{	heta} + m a \cos	heta \, \ddot{x}_1 + m a g \sin	heta = T$$
+            <div class="math-block" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid var(--accent-emerald); padding: 14px;">
+              $$\mathbf{(J + m a^2) \ddot{	heta} + m a \cos	heta \, \ddot{x}_1 + m a g \sin	heta = T(t)}$$
+            </div>
+          </div>
+
+          <!-- SUMMARY MATRIX FORM & KEY INSIGHTS -->
+          <div class="callout callout-tip" style="margin: 24px 0;">
+            <div class="callout-title"><i class="fa-solid fa-layer-group"></i> Standard Robotics State-Space Matrix Representation</div>
+            <div class="callout-content" style="font-size: 0.94rem;">
+              The two coupled second-order non-linear differential equations can be expressed in canonical robotic manipulator form:
+              $$\mathbf{M(q) \ddot{q} + C(q, \dot{q}) \dot{q} + G(q) = 	au}$$
+              where the generalized coordinate vector is $\mathbf{q} = egin{bmatrix} x_1 \ 	heta \end{bmatrix}$ and generalized control effort is $\mathbf{	au} = egin{bmatrix} F \ T \end{bmatrix}$:
+              <div class="math-block">
+                $$egin{bmatrix} M + m & m a \cos	heta \ m a \cos	heta & J + m a^2 \end{bmatrix} egin{bmatrix} \ddot{x}_1 \ \ddot{	heta} \end{bmatrix} + egin{bmatrix} -m a \sin	heta \, \dot{	heta}^2 \ 0 \end{bmatrix} + egin{bmatrix} 0 \ m a g \sin	heta \end{bmatrix} = egin{bmatrix} F(t) \ T(t) \end{bmatrix}$$
+              </div>
+              <ul style="margin-left: 20px; line-height: 1.7;">
+                <li><strong>Inertia Matrix $\mathbf{M(q)}$:</strong> Symmetric and positive definite. Notice the off-diagonal inertial coupling $m a \cos	heta$ which dynamically links trolley translation to arm swing.</li>
+                <li><strong>Coriolis / Centrifugal Vector $\mathbf{C(q, \dot{q})}$:</strong> Contains quadratic velocity feedback $-m a \sin	heta \, \dot{	heta}^2$. When the arm swings at high angular velocity $\dot{	heta}$, it exerts horizontal centrifugal reaction forces pushing back against the cart.</li>
+                <li><strong>Gravity Vector $\mathbf{G(q)}$:</strong> Generates restoring pendulum torque $m a g \sin	heta$, stabilizing the arm downward.</li>
+                <li><strong>Non-Linearity:</strong> The equations are non-linear due to trigonometric terms ($\cos	heta$, $\sin	heta$) and quadratic velocity term ($\dot{	heta}^2$).</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
